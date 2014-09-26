@@ -1,0 +1,39 @@
+﻿@model Blog.Models.BlogEntryModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="row">
+    <!-- Blog Post Content Column -->
+    <div class="col-lg-12">
+
+        @using (Html.BeginForm("NewPost", "Blog", FormMethod.Post))
+        {
+            <h1>Create New Blog Entry</h1>
+            @Html.HiddenFor(model => model.BlogPost.ID)
+            <div class="form-group">
+                <label>Title</label>
+                @Html.TextBoxFor(model => model.BlogPost.Title, new { @class = "form-control", placeholder = "title", maxlength = "100", required = "required" })
+            </div>
+
+            <div class="form-group">
+                <label>Blog Text</label>
+                @Html.TextAreaFor(model => model.BlogPost.BlogText, new { @class = "ckeditor", rows = "10", required = "required" })
+            </div>
+
+            <div class="form-group">
+                <label>Image Url</label>
+                @Html.TextBoxFor(model => model.BlogPost.MainImageUrl, new { @class = "form-control", placeholder = "http://imgur.com/", maxlength = "200" })
+            </div>
+
+            <div class="form-group">
+                <label>Tags</label>
+                @Html.TextBoxFor(model => model.BlogTags, new { @class = "form-control", placeholder = "tags", maxlength = "100" })
+            </div>
+            <input type="submit" value="Create Post!" class="btn btn-primary" />
+        }
+    </div>
+</div>
+@Scripts.Render("~/bundles/editor")
+
+

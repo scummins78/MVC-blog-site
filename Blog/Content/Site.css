@@ -1,0 +1,86 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+@media(min-width:767px) {
+body {
+    padding-top: 160px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+}
+@media(max-width: 767px) 
+{
+    body{
+    padding-top: 50px;
+}
+}
+
+
+
+footer {
+    margin: 50px 0;
+}
+
+.bottom-shadow {
+	-webkit-box-shadow: 0px 2px 20px #000000;
+	-moz-box-shadow: 0px 2px 20px #000000;
+	box-shadow: 0px 2px 20px #000000;
+	
+}
+
+/* for scrolling nav */
+@media(min-width:767px) {
+    .navbar {
+        padding-top: 100px;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+    }
+}
+
+/* scroll link */
+#scroll-link 
+{
+     position: fixed;   
+     bottom: 20px;
+     right: 300px;
+     
+}
+
+#scoll-image
+{
+    height: 50px;
+    width: 50px;   
+}
+
+.img-main
+{
+    margin: auto;
+    max-width: 600px !important;
+
+}

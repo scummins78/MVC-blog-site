@@ -1,0 +1,48 @@
+﻿@model Blog.Models.BlogEntryModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="row">
+    <!-- Blog Post Content Column -->
+    <div class="col-lg-8">
+
+        <!-- Blog Post -->
+        <!-- Title -->
+        <h1>@Model.BlogPost.Title</h1>
+
+        <!-- Author -->
+        <p class="lead">
+            by <a href="#">@Model.BlogPost.Author</a>
+        </p>
+        <hr />
+
+        <!-- Date/Time -->
+        <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.BlogPost.DateTimePosted</p>
+        <hr />
+
+        <!-- Preview Image -->
+        <img class="img-responsive img-main" src="@Model.BlogPost.MainImageUrl" alt="" />
+
+        <hr />
+
+        <!-- Post Content -->
+        <p>@Html.Raw(Model.BlogPost.BlogText)</p>
+        <hr />
+
+        <!-- Blog Comments -->
+        <div class="well">
+            <div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-numposts="5" data-colorscheme="light"></div>
+        </div>
+
+
+    </div>
+
+    <!-- Blog Sidebar Widgets Column -->
+    <div class="col-md-4">
+        @{ Html.RenderPartial("~/Views/Blog/_Twitter.cshtml", Model.TwitterFeed); }
+    </div>
+
+</div>
+
+

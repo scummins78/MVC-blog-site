@@ -39,9 +39,10 @@ namespace Blog
         {
             var postCount = await blogRepository.GetPostCountAsync(filter).ConfigureAwait(false);
 
-            
             // figure out of page is out of range
-            if (page * itemsPerPage > postCount)
+            var startingPost = (page > 0 ? page - 1 : 0);
+
+            if (startingPost * itemsPerPage + 1 > postCount)
             {
                 throw new ArgumentOutOfRangeException("page", page, "page would result in items past amount of posts");
             }
@@ -76,6 +77,13 @@ namespace Blog
             ScrubPostForStorage(blogPost);
 
             return blogRepository.InsertOrUpdateAsync(blogPost);
+        }
+
+        public int InsertOrUpdate(BlogPost blogPost)
+        {
+            ScrubPostForStorage(blogPost);
+
+            return blogRepository.InsertOrUpdate(blogPost);
         }
 
         public BlogPost GetNewPost()

@@ -163,7 +163,12 @@ namespace Blog.Controllers
             model.BlogPost.Tags = BuildTags(model.BlogTags);
 
             // persist blog
-            dataHelper.InsertOrUpdateAsync(FlattenBlogPostModel(model.BlogPost));
+            var rowsCreated = dataHelper.InsertOrUpdate(FlattenBlogPostModel(model.BlogPost));
+
+            if (rowsCreated == 0)
+            {
+                // in here handle issues;  maybe throw exception?
+            }
             return RedirectToAction("Index");
         }
 

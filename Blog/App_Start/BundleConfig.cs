@@ -34,7 +34,8 @@ namespace Blog
 
             // scripts needed for blog editing
             bundles.Add(new ScriptBundle("~/bundles/editor").Include(
-                        "~/Scripts/ckeditor.min.js"));
+                        "~/Scripts/tinymce/tinymce.js",
+                        "~/Scripts/texteditor.js"));
             BundleTable.EnableOptimizations = false;
         }
     }

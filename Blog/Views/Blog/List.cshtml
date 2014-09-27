@@ -50,12 +50,12 @@
         <ul class="pager">
             @if (Model.HasPreviousPage) { 
                 <li class="previous">
-                    <a href="@Url.Current(new { page = Model.Page - 1 })">&larr; Older</a>
+                    <a href="@Url.Current(new { page = Model.Page - 1 })">&larr; Newer</a>
                 </li>
             }
             @if (Model.HasNextPage) {
                 <li class="next">
-                    <a href="@Url.Current(new { page = Model.Page + 1 })">Newer &rarr;</a>
+                    <a href="@Url.Current(new { page = Model.Page + 1 })">Older &rarr;</a>
                 </li>
             }
         </ul>

@@ -22,6 +22,8 @@ namespace Blog.Models
             this.MainImageUrl = post.MainImageUrl;
             this.DateTimePosted = post.DateTimePosted;
             this.UrlTitle = StripHtml(post.UrlTitle, false);
+            this.Tags = post.Tags;
+            this.Images = post.Images;
         }
 
         /// <summary>

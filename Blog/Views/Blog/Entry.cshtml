@@ -19,7 +19,16 @@
         <hr />
 
         <!-- Date/Time -->
-        <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.BlogPost.DateTimePosted</p>
+        <p>
+            <span class="glyphicon glyphicon-time"></span> Posted on @Model.BlogPost.DateTimePosted
+            @if (Model.BlogPost.Tags.Count > 0)
+            {
+                foreach (var tag in Model.BlogPost.Tags)
+                {
+                    <span class="label label-primary">@tag.TagValue</span>
+                }
+            }
+        </p>
         <hr />
 
         <!-- Preview Image -->

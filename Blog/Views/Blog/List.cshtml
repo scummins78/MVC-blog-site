@@ -29,7 +29,14 @@
             <p class="lead">
                 by <a href="#">@post.Author</a>
             </p>
-            <p><span class="glyphicon glyphicon-time"></span>@post.DateTimePosted</p>
+            <p>
+                <span class="glyphicon glyphicon-time"></span>@post.DateTimePosted
+                @if (post.Tags.Count > 0) {
+                    foreach (var tag in post.Tags) {
+                        <span class="label label-primary">@tag.TagValue</span>
+                    }
+                }
+            </p>
             <hr />
             <img class="img-responsive img-main" src="@post.MainImageUrl" alt="" />
             <hr />

@@ -26,7 +26,11 @@
                     <li>@Html.ActionLink("Home", "Index", "Blog")</li>
                     <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("New Post", "NewPost", "Blog")</li>
+                    
+                    <!-- limit this to logged in users with rights -->
+                    @if (ViewBag.UserData.CanCreatePost) {
+                        <li>@Html.ActionLink("New Post", "NewPost", "Blog")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

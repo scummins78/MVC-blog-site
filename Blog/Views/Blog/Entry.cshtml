@@ -1,4 +1,5 @@
-﻿@model Blog.Models.BlogEntryModel
+﻿@using DataRepository.Models
+@model Blog.Models.BlogEntryModel
 @{
     ViewBag.Title = Model.Title;
 }
@@ -40,7 +41,7 @@
 
     <!-- Blog Sidebar Widgets Column -->
     <div class="col-md-4">
-        @{ Html.RenderPartial("~/Views/Blog/_Twitter.cshtml", Model.TwitterFeed); }
+        @{Html.RenderPartial("~/Views/Blog/_Twitter.cshtml", (TwitterWidget)ViewBag.UserData.TwitterFeed);}
     </div>
 
 </div>

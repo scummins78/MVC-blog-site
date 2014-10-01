@@ -7,7 +7,6 @@ namespace Blog.Models
     public abstract class BlogViewModel
     {
         public string Title { get; set; }
-        public TwitterWidget TwitterFeed { get; set; }
     }
 
     public class BlogPostModel : BlogPost

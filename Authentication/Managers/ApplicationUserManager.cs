@@ -5,7 +5,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Authentication.Models;
-using Authentication;
 
 namespace Authentication.Managers
 {

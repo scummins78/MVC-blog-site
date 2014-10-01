@@ -2,22 +2,29 @@
 using System.Collections.ObjectModel;
 using System.Web.Security.AntiXss;
 using System.Linq;
+
 using System.Web.Mvc;
 
-using DataRepository.Models;
+
+
+
 using DataRepository.Repository;
+using DataRepository.Models;
+
 using Blog.Models;
 
 namespace Blog.Controllers
 {
-    public class BlogController : Controller
+    public class BlogController : BaseController
     {
-        private const int PostsPerPage = 2;
+        private const int PostsPerPage = 10;
 
+        
         private readonly DataHelper dataHelper;
         public BlogController(IBlogRepository repository)
         {
             dataHelper = new DataHelper(repository);
+            
         }
 
         //
@@ -129,10 +136,14 @@ namespace Blog.Controllers
         /// <returns></returns>
         public ActionResult ByTag(string tag, int page)
         {
-            //ViewBag.Blog = SetBloghere;
+            // get posts based on tag
+            var searchTag = tag.ToLower();
+            var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
+                                                    p => p.Tags.Any(t => t.TagValue.ToLower() == searchTag),
+                                                    q => q.OrderByDescending(p => p.DateTimePosted)).Result;
 
             // add code here
-            return View("List");
+            return View("List", viewModel);
         }
 
         #region editing and creating posts
@@ -143,6 +154,13 @@ namespace Blog.Controllers
         /// <returns></returns>
         public ActionResult NewPost()
         {
+            // check to see if user can create posts
+            if (!CanCreateNewPost())
+            {
+                Response.StatusCode = 404;
+                return View("Error");
+            }
+            
             var model = new BlogEntryModel
             {
                 Title = "Blog Post",

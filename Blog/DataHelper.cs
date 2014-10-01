@@ -42,11 +42,14 @@ namespace Blog
             // figure out of page is out of range
             var startingPost = (page > 0 ? page - 1 : 0);
 
+            /* I don't particularly like this;  it ends in exceptions if tags searched for are not found
+             * better to just let the user get a page of empty results
             if (startingPost * itemsPerPage + 1 > postCount)
             {
                 throw new ArgumentOutOfRangeException("page", page, "page would result in items past amount of posts");
             }
 
+             */ 
             // retrieve a 'page' of items
             var startingPoint = page > 1 ? itemsPerPage * (page - 1) : 0;
             List<BlogPost> posts = await blogRepository.GetPostsAsync(startingPoint, itemsPerPage, filter, orderBy).ConfigureAwait(false);
@@ -68,7 +71,6 @@ namespace Blog
             return new BlogEntryModel
             {
                 Title = "Blog Post",
-                TwitterFeed = GetWidgetSettings("TwitterFeed"),
                 BlogPost = new BlogPostModel(DecodeHtmlForDisplay(post))
             };
         }
@@ -140,21 +142,11 @@ namespace Blog
             {
                 Heading = "Blog Title Goes Here",
                 SubHeading = "This is the Sub Title",
-                Title = "Blog Home",
-                TwitterFeed = GetWidgetSettings("TwitterFeed")
+                Title = "Blog Home"
             };
         }
 
-        private TwitterWidget GetWidgetSettings(string widgetName)
-        {
-            var newWidget = new TwitterWidget
-            {
-                AccountUrl = ConfigurationManager.AppSettings["TwitterAccount"],
-                Label = ConfigurationManager.AppSettings["TwitterLabel"],
-                WidgetId = ConfigurationManager.AppSettings["TwitterWidgetId"]
-            };
-            return newWidget;
-        }
+        
 
         #endregion
     }

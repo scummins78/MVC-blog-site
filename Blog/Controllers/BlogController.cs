@@ -5,13 +5,10 @@ using System.Linq;
 
 using System.Web.Mvc;
 
-
-
-
 using DataRepository.Repository;
 using DataRepository.Models;
 
-using Blog.Models;
+using Blog.Models.BlogView;
 
 namespace Blog.Controllers
 {
@@ -160,28 +157,26 @@ namespace Blog.Controllers
                 Response.StatusCode = 404;
                 return View("Error");
             }
-            
-            var model = new BlogEntryModel
-            {
-                Title = "Blog Post",
-                BlogPost = new BlogPostModel(dataHelper.GetNewPost())
-            };
+
+            var model = BlogEntryVM.BuildViewModel(dataHelper.GetNewPost());
+            model.PageTitle = "Blog Post";
 
             return View("NewEntry", model);
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult NewPost(BlogEntryModel model)
+        public ActionResult NewPost(BlogEntryVM model)
         {
-            model.BlogPost.DateTimePosted = DateTime.Now;
-            model.BlogPost.Author = "Shaun Cummins";
-            model.BlogPost.SetUrlTitle();
+            model.DateTimePosted = DateTime.Now;
+            model.Author = "Shaun Cummins";
+            // build url title
+            model.UrlTitle = model.Title.Replace(" ", "-").ToLower();
 
             // take the entered tags and build blog tag objects
-            model.BlogPost.Tags = BuildTags(model.BlogTags);
+            model.Tags = BuildTags(model.BlogTags);
 
             // persist blog
-            var rowsCreated = dataHelper.InsertOrUpdate(FlattenBlogPostModel(model.BlogPost));
+            var rowsCreated = dataHelper.InsertOrUpdate(FlattenBlogPostModel(model));
 
             if (rowsCreated == 0)
             {
@@ -199,19 +194,9 @@ namespace Blog.Controllers
         /// </summary>
         /// <param name="newPost"></param>
         /// <returns></returns>
-        private BlogPost FlattenBlogPostModel(BlogPostModel newPost)
+        private BlogPost FlattenBlogPostModel(BlogPostVM newPost)
         {
-            return new BlogPost()
-            {
-                Author = newPost.Author,
-                BlogText = newPost.BlogText,
-                DateTimePosted = newPost.DateTimePosted,
-                Images = newPost.Images,
-                MainImageUrl = newPost.MainImageUrl,
-                Tags = newPost.Tags,
-                Title = newPost.Title,
-                UrlTitle = newPost.UrlTitle
-            };
+            return newPost.BuildModel();
         }
 
         /// <summary>
@@ -219,9 +204,9 @@ namespace Blog.Controllers
         /// </summary>
         /// <param name="tagString">string of tags</param>
         /// <returns></returns>
-        private static ObservableCollection<BlogTag> BuildTags(string tagString) {
+        private static ObservableCollection<BlogTagVM> BuildTags(string tagString) {
 
-            var tags = new ObservableCollection<BlogTag>();
+            var tags = new ObservableCollection<BlogTagVM>();
             if (tagString == null || tagString.Length == 0) return tags;
             
             tagString = AntiXssEncoder.HtmlEncode(tagString, true);
@@ -229,7 +214,7 @@ namespace Blog.Controllers
             
             
             foreach (var tag in tagArray){
-                tags.Add(new BlogTag()
+                tags.Add(new BlogTagVM()
                 {
                     TagValue = tag
                 });

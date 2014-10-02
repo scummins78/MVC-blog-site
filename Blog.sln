@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "Authentic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Tests", "Authentication.Tests\Authentication.Tests.csproj", "{05252F0D-4B70-40FF-8D77-6793C2BC383B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueInjecterExtensions", "ValueInjecterExtensions\ValueInjecterExtensions.csproj", "{41357A36-75F0-4AE8-A769-7B47F59BB55A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{05252F0D-4B70-40FF-8D77-6793C2BC383B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05252F0D-4B70-40FF-8D77-6793C2BC383B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05252F0D-4B70-40FF-8D77-6793C2BC383B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41357A36-75F0-4AE8-A769-7B47F59BB55A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41357A36-75F0-4AE8-A769-7B47F59BB55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41357A36-75F0-4AE8-A769-7B47F59BB55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41357A36-75F0-4AE8-A769-7B47F59BB55A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

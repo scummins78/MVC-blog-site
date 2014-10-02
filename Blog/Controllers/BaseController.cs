@@ -23,11 +23,6 @@ namespace Blog.Controllers
     {
         private ApplicationUserManager userManager;
 
-        public BaseController()
-        {
-            
-        }
-        
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);

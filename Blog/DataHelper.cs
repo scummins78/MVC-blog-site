@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ using System.Net;
 using DataRepository.Models;
 using DataRepository.Repository;
 
-using Blog.Models;
+using Blog.Models.BlogView;
 
 namespace Blog
 {
@@ -34,7 +33,7 @@ namespace Blog
         /// <param name="filter">search filter</param>
         /// <param name="orderBy">sort for posts</param>
         /// <returns></returns>
-        public async Task<BlogListModel> BuildPostListModelAsync(int itemsPerPage = 10, int page = 1, Expression<Func<BlogPost, bool>> filter = null,
+        public async Task<BlogListVM> BuildPostListModelAsync(int itemsPerPage = 10, int page = 1, Expression<Func<BlogPost, bool>> filter = null,
                                 Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null)
         {
             var postCount = await blogRepository.GetPostCountAsync(filter).ConfigureAwait(false);
@@ -53,27 +52,26 @@ namespace Blog
         /// <param name="dateFilter"></param>
         /// <param name="title"></param>
         /// <returns></returns>
-        public async Task<BlogEntryModel> FindPostAsync(DateTime dateFilter, string title)
+        public async Task<BlogEntryVM> FindPostAsync(DateTime dateFilter, string title)
         {
             var post = await blogRepository.FindPostAsync(dateFilter, title).ConfigureAwait(false);
-            
-            return new BlogEntryModel
-            {
-                Title = "Blog Post",
-                BlogPost = new BlogPostModel(DecodeHtmlForDisplay(post))
-            };
+
+            var model = BlogEntryVM.BuildViewModel(DecodeHtmlForDisplay(post));
+            model.PageTitle = "Blog Post";
+
+            return model;
         }
 
         public Task<int> InsertOrUpdateAsync(BlogPost blogPost){
-            ScrubPostForStorage(blogPost);
 
+            ScrubPostForStorage(blogPost);
             return blogRepository.InsertOrUpdateAsync(blogPost);
         }
 
         public int InsertOrUpdate(BlogPost blogPost)
         {
+            
             ScrubPostForStorage(blogPost);
-
             return blogRepository.InsertOrUpdate(blogPost);
         }
 
@@ -125,17 +123,15 @@ namespace Blog
 
         #region view model building
 
-        private BlogListModel BuildBlogListModel(int itemsPerPage, int page, int totalPostCount, IList<BlogPost> posts)
+        private BlogListVM BuildBlogListModel(int itemsPerPage, int page, int totalPostCount, IList<BlogPost> posts)
         {
-            return new BlogListModel(itemsPerPage, page, totalPostCount, posts)
+            return new BlogListVM(itemsPerPage, page, totalPostCount, posts)
             {
                 Heading = "Blog Title Goes Here",
                 SubHeading = "This is the Sub Title",
-                Title = "Blog Home"
+                PageTitle = "Blog Home"
             };
         }
-
-        
 
         #endregion
     }

@@ -3,56 +3,48 @@
 @{
     ViewBag.Title = Model.PageTitle;
 }
-
-<div class="row">
-    <!-- Blog Post Content Column -->
-    <div class="col-lg-8">
-
-        <!-- Blog Post -->
-        <!-- Title -->
-        <h1>@Model.Title</h1>
-
-        <!-- Author -->
-        <p class="lead">
-            by <a href="#">@Model.Author</a>
-        </p>
-        <hr />
-
-        <!-- Date/Time -->
-        <p>
-            <span class="glyphicon glyphicon-time"></span> Posted on @Model.DateTimePosted
-            @if (Model.Tags.Count > 0)
-            {
-                foreach (var tag in Model.Tags)
-                {
-                    <span class="label label-primary">@tag.TagValue</span>
-                }
-            }
-        </p>
-        <hr />
-
-        <!-- Preview Image -->
-        <img class="img-responsive img-main" src="@Model.MainImageUrl" alt="" />
-
-        <hr />
-
-        <!-- Post Content -->
-        <p>@Html.Raw(Model.BlogText)</p>
-        <hr />
-
-        <!-- Blog Comments -->
-        <div class="well">
-            <div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-numposts="5" data-colorscheme="light"></div>
+    <!-- Page Header -->
+    <header class="entry-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>@Model.Title</h1>
+                        <span class="meta">Posted by <a href="#">@Model.Author</a> on @Model.DateTimePosted</span>
+                        <br />
+                        @if (Model.Tags.Count > 0)
+                        {
+                            foreach (var tag in Model.Tags)
+                            {
+                                <span class="fa fa-tag">@tag.TagValue&nbsp;</span>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
+    </header>
 
+    <!-- Preview Image -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <img class="img-responsive img-main" src="@Model.MainImageUrl" alt="" />
+                        
+                    <!-- Post Content -->
+                    <p>@Html.Raw(Model.BlogText)</p>
+                </div>
+            </div>
+        </div>
+    </article>
 
+    <!-- Blog Comments -->
+    <!--
+    <div class="well">
+        <div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-numposts="5" data-colorscheme="light"></div>
     </div>
+    -->
 
-    <!-- Blog Sidebar Widgets Column -->
-    <div class="col-md-4">
-        @{Html.RenderPartial("~/Views/Blog/_Twitter.cshtml", (TwitterWidget)ViewBag.UserData.TwitterFeed);}
-    </div>
-
-</div>
 
 

@@ -5,43 +5,33 @@
     ViewBag.Title = Model.PageTitle;
 }
 
-<div class="row">
-    <!-- Blog Entries Column -->
-    <div id="blog-items" class="col-md-8">
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>@Model.Heading</h1>
+                    <hr class="small">
+                    <span class="subheading">@Model.SubHeading</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-        <h1 class="page-header">
-            @Model.Heading
-            <small>@Model.SubHeading</small>
-        </h1>
-
-        <!-- First Blog Post -->
-        @foreach (var post in Model.BlogPosts)
-        {
-            <h2>
-                @Html.ActionLink(post.Title, "Entry", "Blog", new
-               {
-                   year = post.DateTimePosted.Year,
-                   month = post.DateTimePosted.Month,
-                   day = post.DateTimePosted.Day,
-                   title = post.UrlTitle
-               }, null)
-            </h2>
-            <p class="lead">
-                by <a href="#">@post.Author</a>
-            </p>
-            <p>
-                <span class="glyphicon glyphicon-time"></span>@post.DateTimePosted
-                @if (post.Tags.Count > 0) {
-                    foreach (var tag in post.Tags) {
-                        <span class="label label-primary">@tag.TagValue</span>
-                    }
-                }
-            </p>
-            <hr />
-            <img class="img-responsive img-main" src="@post.MainImageUrl" alt="" />
-            <hr />
-            <p>@Html.Raw(post.BlogSummary)</p>
-            <a class="btn btn-primary" href="@Url.Action("Entry", "Blog",
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <!-- main column-->
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            
+            @foreach (var post in Model.BlogPosts)
+            {
+                <div class="post-preview">
+                    <div class="post-title-block">
+                        <a href="@Url.Action("Entry", "Blog",
                             new
                              {
                                 year = post.DateTimePosted.Year,
@@ -49,31 +39,59 @@
                                 day = post.DateTimePosted.Day,
                                 title = post.UrlTitle
                              }
-                         )">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
-
-            <hr />
-        }
-
-        <!-- Pager -->
-        <ul class="pager">
-            @if (Model.HasPreviousPage) { 
-                <li class="previous">
-                    <a href="@Url.Current(new { page = Model.Page - 1 })">&larr; Newer</a>
-                </li>
+                         )">
+                            <h2 class="post-title">
+                                @post.Title
+                            </h2>
+                        </a>
+                        <span class="meta">Posted by <a href="#">@post.Author</a> on @post.DateTimePosted</span>
+                        <br />
+                        @if (post.Tags.Count > 0)
+                        {
+                            foreach (var tag in post.Tags)
+                            {
+                                <span class="fa fa-tag">@tag.TagValue&nbsp;</span>
+                            }
+                        }
+                    </div>
+                    <img class="img-responsive img-main" src="@post.MainImageUrl" alt="" />
+                    <h3 class="post-subtitle">
+                        @post.BlogSummary
+                    </h3>
+                    <div class="entry-link">
+                        <a href="@Url.Action("Entry", "Blog",
+                            new
+                             {
+                                year = post.DateTimePosted.Year,
+                                month = post.DateTimePosted.Month,
+                                day = post.DateTimePosted.Day,
+                                title = post.UrlTitle
+                             }
+                         )">Read More &rarr;</a>
+                    </div>
+                    
+                </div>
+                <hr>
             }
-            @if (Model.HasNextPage) {
-                <li class="next">
-                    <a href="@Url.Current(new { page = Model.Page + 1 })">Older &rarr;</a>
-                </li>
-            }
-        </ul>
-    </div>
 
-    <!-- Blog Sidebar Widgets Column -->
-    <div class="col-md-4">
-        <!-- Side Widget Well -->
-        @{Html.RenderPartial("~/Views/Blog/_Twitter.cshtml", (TwitterWidget)ViewBag.UserData.TwitterFeed);}
+            <!-- Pager -->
+            <ul class="pager">
+                @if (Model.HasPreviousPage)
+                {
+                    <li class="previous">
+                        <a href="@Url.Current(new { page = Model.Page - 1 })">&larr; Posts</a>
+                    </li>
+                }
+                @if (Model.HasNextPage)
+                {
+                    <li class="next">
+                        <a href="@Url.Current(new { page = Model.Page + 1 })">Older &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
 </div>
+
 
 

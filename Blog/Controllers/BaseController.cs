@@ -33,6 +33,10 @@ namespace Blog.Controllers
             var data = new BaseViewModel()
             {
                 CanCreatePost = CanCreateNewPost(),
+                GitUrl = ConfigurationManager.AppSettings["GitUrl"],
+                TwitterUrl = ConfigurationManager.AppSettings["TwitterAccount"],
+                LinkedInUrl = ConfigurationManager.AppSettings["LinkedInUrl"],
+                FacebookUrl = ConfigurationManager.AppSettings["FacebookUrl"],
                 TwitterFeed = GetWidgetSettings()
             };
 

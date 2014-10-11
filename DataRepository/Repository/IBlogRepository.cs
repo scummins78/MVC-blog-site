@@ -12,10 +12,10 @@ namespace DataRepository.Repository
         #region Search
 
         List<BlogPost> GetPosts(int skip = 0, int pageSize = 10, Expression<Func<BlogPost, bool>> filter = null,
-                                Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null);
+                                Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null, bool includeChildren = true);
 
         Task<List<BlogPost>> GetPostsAsync(int skip = 0, int pageSize = 10, Expression<Func<BlogPost, bool>> filter = null,
-                                Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null);
+                                Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null, bool includeChildren = true);
 
         int GetPostCount(Expression<Func<BlogPost, bool>> filter = null);
 

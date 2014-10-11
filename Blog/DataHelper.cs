@@ -77,6 +77,16 @@ namespace Blog
             return links.Select(l => ArchiveLinkVM.BuildArchiveLinkVM(l)).ToList();
         }
 
+        public async Task<List<RecentPostLinkVM>> GetRecentPostLinksAsync()
+        {
+            var posts = await blogRepository.GetPostsAsync(skip: 0, pageSize: 5,
+                                                    orderBy: q => q.OrderByDescending(p => p.DateTimePosted),
+                                                    includeChildren: false).ConfigureAwait(false);
+
+            return posts.Select(p => RecentPostLinkVM.BuildRecentPostLinkVM(p)).ToList();
+        }
+
+
         #endregion
 
         #region CRUD methods

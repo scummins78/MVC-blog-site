@@ -36,7 +36,7 @@ namespace DataRepository.Repository.EF
         #region Search
 
         public List<BlogPost> GetPosts(int skip = 0, int pageSize = 10, Expression<Func<BlogPost, bool>> filter = null,
-                                Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null)
+                                Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null, bool includeChildren = true)
         {
             IQueryable<BlogPost> query = context.BlogPosts;
 
@@ -46,25 +46,27 @@ namespace DataRepository.Repository.EF
                 query = query.Where(filter);
             }
 
+            if (includeChildren)
+            {
+                query = query.Include("Tags")
+                            .Include("Images");
+            }
+
             // order results if needed
             if (orderBy != null)
             {
                 return orderBy(query).Skip(skip)
-                                    .Take(pageSize)
-                                    .Include("Tags")
-                                    .Include("Images").ToList();
+                                    .Take(pageSize).ToList();
             }
             else
             {
                 return query.Skip(skip)
-                            .Take(pageSize)
-                            .Include("Tags")
-                            .Include("Images").ToList();
+                            .Take(pageSize).ToList();
             }
         }
 
         public Task<List<BlogPost>> GetPostsAsync(int skip = 0, int pageSize = 10, Expression<Func<BlogPost, bool>> filter = null,
-                                Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null)
+                                Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null, bool includeChildren = true)
         {
             IQueryable<BlogPost> query = context.BlogPosts;
 
@@ -74,20 +76,23 @@ namespace DataRepository.Repository.EF
                 query = query.Where(filter);
             }
 
+            if (includeChildren)
+            {
+                query = query.Include("Tags")
+                            .Include("Images");
+            }
+
             // order results if needed
             if (orderBy != null)
             {
                 return orderBy(query).Skip(skip)
-                                    .Take(pageSize)
-                                    .Include("Tags")
-                                    .Include("Images").ToListAsync();
+                                    .Take(pageSize).ToListAsync();
+
             }
             else
             {
                 return query.Skip(skip)
-                            .Take(pageSize)
-                            .Include("Tags")
-                            .Include("Images").ToListAsync();
+                            .Take(pageSize).ToListAsync();
             }
         }
 

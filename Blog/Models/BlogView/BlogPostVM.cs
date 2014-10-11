@@ -31,14 +31,6 @@ namespace Blog.Models.BlogView
             }
         }
 
-        public string MainImageThumbnailUrl
-        {
-            get
-            {
-                return string.Format("{0}{1}s.jpg", BaseImageUrl, MainImageId);
-            }
-        }
-
         /// <summary>
         /// gist of the Blog post text
         /// </summary>

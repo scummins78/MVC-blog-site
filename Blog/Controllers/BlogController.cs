@@ -12,7 +12,7 @@ namespace Blog.Controllers
 {
     public class BlogController : BaseController
     {
-        private const int PostsPerPage = 3;
+        private const int PostsPerPage = 10;
 
         private readonly DataHelper dataHelper;
         private readonly Logger logger = LogManager.GetLogger("BlogController");

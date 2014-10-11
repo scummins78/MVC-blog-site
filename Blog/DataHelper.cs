@@ -71,6 +71,12 @@ namespace Blog
             return tags.Select(t => TagLinkVM.BuildTagLinkVM(t)).ToList();
         }
 
+        public async Task<List<ArchiveLinkVM>> GetArchiveLinksAsync()
+        {
+            var links = await blogRepository.GetArchiveItemsAsync().ConfigureAwait(false);
+            return links.Select(l => ArchiveLinkVM.BuildArchiveLinkVM(l)).ToList();
+        }
+
         #endregion
 
         #region CRUD methods

@@ -33,6 +33,19 @@ namespace Blog.Controllers
             }
         }
 
+        public JsonResult ArchiveList()
+        {
+            try
+            {
+                var archives = dataHelper.GetArchiveLinksAsync().Result;
+                return Json(new JsonReturnObject(archives, Response.StatusCode, true), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return HandleExceptions("Error occurred retrieving archive list.", ex);
+            }
+        }
+
         private JsonResult HandleExceptions(string message, Exception ex)
         {
             // log error

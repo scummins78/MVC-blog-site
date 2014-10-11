@@ -29,6 +29,10 @@ namespace DataRepository.Repository
 
         Task<List<TagItem>> GetDistinctTagsAsync();
 
+        List<ArchiveItem> GetArchiveItems();
+
+        Task<List<ArchiveItem>> GetArchiveItemsAsync();
+
         #endregion
 
         #region CRUD actions

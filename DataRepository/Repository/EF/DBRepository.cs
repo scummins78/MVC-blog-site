@@ -17,6 +17,17 @@ namespace DataRepository.Repository.EF
                                         GROUP BY [TagValue]
                                         ORDER BY [Instances] DESC";
 
+        readonly string archiveListSql = @"SELECT DATENAME(month,[DateTimePosted]) as MonthName, 
+		                                        DATEPART(month,[DateTimePosted]) as Month, 
+		                                        DATEPART(year,[DateTimePosted]) as Year,
+		                                        COUNT([DateTimePosted]) as Instances
+	                                        FROM [dbo].[BlogPosts]
+	                                        GROUP BY DATEPART(year,[DateTimePosted]), 
+                                                DATEPART(month,[DateTimePosted]), 
+                                                DATENAME(month,[DateTimePosted]),DATENAME(year,[DateTimePosted])
+	                                        ORDER BY DATEPART(year,[DateTimePosted]), 
+                                                DATEPART(month,[DateTimePosted])";
+
         public DBRepository(BlogPostContext context)
         {
             this.context = context;
@@ -132,13 +143,21 @@ namespace DataRepository.Repository.EF
         public List<TagItem> GetDistinctTags()
         {
             return context.Database.SqlQuery<TagItem>(tagListSql).ToList();
-
-            //return context.Tags.Distinct().OrderBy(t => t.TagValue).ToList();
         }
 
         public Task<List<TagItem>> GetDistinctTagsAsync()
         {
             return context.Database.SqlQuery<TagItem>(tagListSql).ToListAsync();
+        }
+
+        public List<ArchiveItem> GetArchiveItems()
+        {
+            return context.Database.SqlQuery<ArchiveItem>(archiveListSql).ToList();
+        }
+
+        public Task<List<ArchiveItem>> GetArchiveItemsAsync()
+        {
+            return context.Database.SqlQuery<ArchiveItem>(archiveListSql).ToListAsync();
         }
 
         #endregion

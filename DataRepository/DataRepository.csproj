@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ArchiveItem.cs" />
     <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Models\BlogTag.cs" />
     <Compile Include="Models\BlogImage.cs" />

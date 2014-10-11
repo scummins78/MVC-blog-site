@@ -7,9 +7,11 @@ using DataRepository.Models;
 
 namespace Blog.Models.Widget
 {
-    public class TagLinkVM
+    public class ArchiveLinkVM
     {
-        public string TagValue { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        public string MonthName { get; set; }
         public int Instances { get; set; }
 
         // assist in building url values
@@ -27,22 +29,26 @@ namespace Blog.Models.Widget
             }
         }
         
-
-        public string TagUrl
+        public string ArchiveUrl
         {
             get
             {
                 // build a link to the blog tag list
-                return Url.Action("ByTag", "Blog", new { tag=TagValue });
+                return Url.Action("ByMonth", "Blog", new
+                             {
+                                year = Year,
+                                month = Month
+                             });
             }
         }
 
-        public static TagLinkVM BuildTagLinkVM(TagItem tag)
+        public static ArchiveLinkVM BuildArchiveLinkVM(ArchiveItem archive)
         {
-            var tagLink = new TagLinkVM();
-            tagLink.InjectFrom(tag);
+            var archiveLink = new ArchiveLinkVM();
+            archiveLink.InjectFrom(archive);
 
-            return tagLink;
+            return archiveLink;
         }
+
     }
 }

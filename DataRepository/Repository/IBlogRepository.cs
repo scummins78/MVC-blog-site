@@ -9,7 +9,7 @@ namespace DataRepository.Repository
 {
     public interface IBlogRepository
     {
-        #region New Search
+        #region Search
 
         List<BlogPost> GetPosts(int skip = 0, int pageSize = 10, Expression<Func<BlogPost, bool>> filter = null,
                                 Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null);
@@ -24,6 +24,10 @@ namespace DataRepository.Repository
         BlogPost FindPost(DateTime dateFilter, string title);
 
         Task<BlogPost> FindPostAsync(DateTime dateFilter, string title);
+
+        List<BlogTag> GetDistinctTags();
+
+        Task<List<BlogTag>> GetDistinctTagsAsync();
 
         #endregion
 

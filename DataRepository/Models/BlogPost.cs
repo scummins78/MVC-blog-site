@@ -13,12 +13,12 @@ namespace DataRepository.Models
         public string Author { get; set; }
         [Index, Required]
         public DateTime DateTimePosted { get; set; }
-        public string MainImageUrl { get; set; }
+        public string MainImageId { get; set; }
         public string BlogText { get; set; }
         [Index(IsUnique=true), MaxLength(300), Required]
         public string UrlTitle { get; set; }
         
         public virtual ICollection<BlogTag> Tags { get; set; }
-        public virtual ICollection<BlogImageUrl> Images { get; set; }
+        public virtual ICollection<BlogImage> Images { get; set; }
     }
 }

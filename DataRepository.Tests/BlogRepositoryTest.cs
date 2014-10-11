@@ -7,8 +7,10 @@ namespace DataRepository.Tests
     public class BlogRepositoryTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GetDistinctTags_Test()
         {
+
+
         }
     }
 }

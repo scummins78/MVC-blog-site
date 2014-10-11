@@ -21,7 +21,7 @@ namespace DataRepository.Repository.EF
                     DateTimePosted = DateTime.Now.AddDays(5),
                     Title = "First Post of The Board",
                     UrlTitle = "first-post-of-the-board",
-                    MainImageUrl = "http://i.imgur.com/h36W3il.jpg",
+                    MainImageId = "h36W3il",
                     Tags = new ObservableCollection<BlogTag>{
                         new BlogTag
                         {
@@ -41,7 +41,7 @@ namespace DataRepository.Repository.EF
                     DateTimePosted = DateTime.Now.AddDays(2).AddHours(5),
                     Title = "Trying Out A New Feature",
                     UrlTitle = "trying-out-a-new-feature",
-                    MainImageUrl = "http://i.imgur.com/cnniukU.png",
+                    MainImageId = "cnniukU",
                     Tags = new ObservableCollection<BlogTag>{
                         new BlogTag
                         {

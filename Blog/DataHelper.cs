@@ -10,6 +10,7 @@ using DataRepository.Models;
 using DataRepository.Repository;
 
 using Blog.Models.BlogView;
+using Blog.Models.Widget;
 
 namespace Blog
 {
@@ -24,6 +25,8 @@ namespace Blog
         {
             blogRepository = repository;
         }
+
+        #region search methods
 
         /// <summary>
         /// Retrieves posts and builds
@@ -62,6 +65,16 @@ namespace Blog
             return model;
         }
 
+        public async Task<List<TagLinkVM>> GetTagsAsync()
+        {
+            var tags = await blogRepository.GetDistinctTagsAsync().ConfigureAwait(false);
+            return tags.Distinct(new TagComparer()).Select(t => TagLinkVM.BuildTagLinkVM(t)).ToList();
+        }
+
+        #endregion
+
+        #region CRUD methods
+
         public Task<int> InsertOrUpdateAsync(BlogPost blogPost){
 
             ScrubPostForStorage(blogPost);
@@ -80,6 +93,8 @@ namespace Blog
             return blogRepository.GetNewPost();
         }
 
+        #endregion
+
         #region scrubbing and decoding
 
         /// <summary>
@@ -92,7 +107,7 @@ namespace Blog
             post.Author = AntiXssEncoder.HtmlEncode(post.Author, true);
             post.BlogText = AntiXssEncoder.HtmlEncode(post.BlogText, true);
             post.Title = AntiXssEncoder.HtmlEncode(post.Title, true);
-            post.MainImageUrl = AntiXssEncoder.UrlEncode(post.MainImageUrl);
+            post.MainImageId = AntiXssEncoder.UrlEncode(post.MainImageId);
         }
 
         private static List<BlogPost> DecodeBlogList(List<BlogPost> blogs)
@@ -114,7 +129,7 @@ namespace Blog
             post.Author = WebUtility.HtmlDecode(post.Author);
             post.BlogText = WebUtility.HtmlDecode(post.BlogText);
             post.Title = WebUtility.HtmlDecode(post.Title);
-            post.MainImageUrl = WebUtility.UrlDecode(post.MainImageUrl);
+            post.MainImageId = WebUtility.UrlDecode(post.MainImageId);
 
             return post;
         }
@@ -134,5 +149,18 @@ namespace Blog
         }
 
         #endregion
+    }
+
+    public class TagComparer : IEqualityComparer<BlogTag>
+    {
+        public bool Equals(BlogTag x, BlogTag y)
+        {
+            return x.TagValue.Equals(y.TagValue);
+        }
+
+        public int GetHashCode(BlogTag obj)
+        {
+            return obj.TagValue.GetHashCode();
+        }
     }
 }

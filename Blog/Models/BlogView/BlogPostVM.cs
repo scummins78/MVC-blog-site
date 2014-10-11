@@ -7,18 +7,37 @@ using DataRepository.Models;
 
 namespace Blog.Models.BlogView
 {
+
     public class BlogPostVM
     {
-        
+        private const string BaseImageUrl = "http://i.imgur.com/";
+
+
         // properties
         public string Author { get; set; }
         public string BlogText { get; set; }
         public string Title { get; set; }
-        public string MainImageUrl { get; set; }
+        public string MainImageId { get; set; }
         public DateTime DateTimePosted { get; set; }
         public string UrlTitle { get; set; }
         public ICollection<BlogTagVM> Tags { get; set; }
         public ICollection<ImageUrlVM> Images { get; set; }
+
+        public string MainImageUrl
+        {
+            get
+            {
+                return string.Format("{0}{1}l.jpg", BaseImageUrl, MainImageId);
+            }
+        }
+
+        public string MainImageThumbnailUrl
+        {
+            get
+            {
+                return string.Format("{0}{1}s.jpg", BaseImageUrl, MainImageId);
+            }
+        }
 
         /// <summary>
         /// gist of the Blog post text

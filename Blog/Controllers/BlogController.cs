@@ -20,7 +20,6 @@ namespace Blog.Controllers
         public BlogController(IBlogRepository repository)
         {
             dataHelper = new DataHelper(repository);
-            
         }
 
         //

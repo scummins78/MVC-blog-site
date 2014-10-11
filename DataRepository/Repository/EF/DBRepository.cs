@@ -18,7 +18,7 @@ namespace DataRepository.Repository.EF
             this.context = context;
         }
 
-        #region New Search
+        #region Search
 
         public List<BlogPost> GetPosts(int skip = 0, int pageSize = 10, Expression<Func<BlogPost, bool>> filter = null,
                                 Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null)
@@ -125,6 +125,16 @@ namespace DataRepository.Repository.EF
             return query.CountAsync();
         }
 
+        public List<BlogTag> GetDistinctTags()
+        {
+            return context.Tags.Distinct().OrderBy(t => t.TagValue).ToList();
+        }
+
+        public Task<List<BlogTag>> GetDistinctTagsAsync()
+        {
+            return context.Tags.Distinct().OrderBy(t => t.TagValue).ToListAsync();
+        }
+
         #endregion
 
         #region CRUD methods
@@ -187,18 +197,6 @@ namespace DataRepository.Repository.EF
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        
-
-
-        
-
-        
-        
-
-        
-
-        
+        }   
     }
 }

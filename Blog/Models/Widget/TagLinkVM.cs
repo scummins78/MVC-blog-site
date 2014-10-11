@@ -25,6 +25,7 @@ namespace Blog.Models.Widget
         }
         
         public string TagValue { get; set; }
+        public int Instances { get; set; }
         public string TagUrl
         {
             get
@@ -34,7 +35,7 @@ namespace Blog.Models.Widget
             }
         }
 
-        public static TagLinkVM BuildTagLinkVM(BlogTag tag)
+        public static TagLinkVM BuildTagLinkVM(TagItem tag)
         {
             var tagLink = new TagLinkVM();
             tagLink.InjectFrom(tag);

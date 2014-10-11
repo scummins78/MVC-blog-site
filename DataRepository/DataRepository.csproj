@@ -52,6 +52,7 @@
     <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Models\BlogTag.cs" />
     <Compile Include="Models\BlogImage.cs" />
+    <Compile Include="Models\TagItem.cs" />
     <Compile Include="Models\TwitterWidget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EF\BaseContext.cs" />

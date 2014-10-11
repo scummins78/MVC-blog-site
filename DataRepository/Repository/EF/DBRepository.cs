@@ -12,6 +12,10 @@ namespace DataRepository.Repository.EF
     public class DBRepository : IBlogRepository, IDisposable
     {
         readonly BlogPostContext context;
+        readonly string tagListSql = @"SELECT DISTINCT [TagValue], COUNT([TagValue]) as Instances
+                                        FROM [dbo].[BlogTags]
+                                        GROUP BY [TagValue]
+                                        ORDER BY [Instances] DESC";
 
         public DBRepository(BlogPostContext context)
         {
@@ -125,14 +129,16 @@ namespace DataRepository.Repository.EF
             return query.CountAsync();
         }
 
-        public List<BlogTag> GetDistinctTags()
+        public List<TagItem> GetDistinctTags()
         {
-            return context.Tags.Distinct().OrderBy(t => t.TagValue).ToList();
+            return context.Database.SqlQuery<TagItem>(tagListSql).ToList();
+
+            //return context.Tags.Distinct().OrderBy(t => t.TagValue).ToList();
         }
 
-        public Task<List<BlogTag>> GetDistinctTagsAsync()
+        public Task<List<TagItem>> GetDistinctTagsAsync()
         {
-            return context.Tags.Distinct().OrderBy(t => t.TagValue).ToListAsync();
+            return context.Database.SqlQuery<TagItem>(tagListSql).ToListAsync();
         }
 
         #endregion

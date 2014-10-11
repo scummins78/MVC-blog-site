@@ -68,7 +68,7 @@ namespace Blog
         public async Task<List<TagLinkVM>> GetTagsAsync()
         {
             var tags = await blogRepository.GetDistinctTagsAsync().ConfigureAwait(false);
-            return tags.Distinct(new TagComparer()).Select(t => TagLinkVM.BuildTagLinkVM(t)).ToList();
+            return tags.Select(t => TagLinkVM.BuildTagLinkVM(t)).ToList();
         }
 
         #endregion

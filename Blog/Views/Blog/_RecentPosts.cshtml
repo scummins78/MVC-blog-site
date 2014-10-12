@@ -1,0 +1,13 @@
+﻿
+    <div id="postList">
+    <ul data-bind="foreach: Posts">
+        <li>
+            <a data-bind="attr: { href: PostUrl }">
+                <img data-bind="attr:{ src: MainImageThumbnailUrl }" />
+                <h4 data-bind="text: Title"></h4>
+                <span data-bind="text: Author"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+

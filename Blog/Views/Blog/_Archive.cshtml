@@ -1,0 +1,9 @@
+﻿<div id="archiveList">
+    <ul data-bind="foreach: Links">
+        <li>
+            <a data-bind="attr: { href: ArchiveUrl }">
+                <span data-bind="text: MonthName"></span>&nbsp;<span data-bind="text: Year"></span>(<span data-bind="text: Instances"></span>)
+            </a>
+        </li>
+    </ul>
+</div>

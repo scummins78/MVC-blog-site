@@ -24,7 +24,7 @@
 <div class="container">
     <div class="row">
         <!-- main column-->
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1">
             
             @foreach (var post in Model.BlogPosts)
             {
@@ -88,6 +88,13 @@
                     </li>
                 }
             </ul>
+        </div>
+
+        <!-- side widget column -->
+        <div class="col-lg-4 col-md-4">
+            @Html.Partial("_RecentPosts")
+            @Html.Partial("_Archive")
+            @Html.Partial("_Tags")
         </div>
     </div>
 </div>

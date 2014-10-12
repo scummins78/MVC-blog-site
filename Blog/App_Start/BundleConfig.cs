@@ -12,6 +12,11 @@ namespace Blog
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/knockout-3.2.0.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/widgets").Include(
+                            "~/Scripts/widgets/RecentPostsVM.js",
+                            "~/Scripts/widgets/ArchiveListVM.js",
+                            "~/Scripts/widgets/TagListVM.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 

@@ -1,0 +1,9 @@
+﻿<div id="tagList">
+    <ul data-bind="foreach: Tags">
+        <li>
+            <a data-bind="attr: { href: TagUrl }">
+                <span data-bind="text: TagValue"></span>(<span data-bind="text: Instances"></span>)
+            </a>
+        </li>
+    </ul>
+</div>

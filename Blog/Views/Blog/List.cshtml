@@ -92,12 +92,14 @@
 
         <!-- side widget column -->
         <div class="col-lg-4 col-md-4">
-            @Html.Partial("_RecentPosts")
-            @Html.Partial("_Archive")
-            @Html.Partial("_Tags")
+            @Html.Partial("_Widgets")
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/widgets")
+}
 
 
 

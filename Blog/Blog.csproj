@@ -206,7 +206,7 @@
     </Compile>
     <Compile Include="backup\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\BlogView\BlogEntryVM.cs" />
     <Compile Include="Models\BlogView\BlogListVM.cs" />
     <Compile Include="Models\BlogView\BlogTagVM.cs" />
@@ -477,6 +477,7 @@
     <Content Include="Views\Blog\_RecentPosts.cshtml" />
     <Content Include="Views\Blog\_Archive.cshtml" />
     <Content Include="Views\Blog\_Tags.cshtml" />
+    <Content Include="Views\Blog\_Widgets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

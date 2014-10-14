@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Authentication.Managers;
 
 using Blog.Models;
+using Authentication.Models;
 using DataRepository.Models;
 
 
@@ -23,6 +24,27 @@ namespace Blog.Controllers
     {
         private ApplicationUserManager userManager;
 
+        private ApplicationUser appUser = null;
+        private ApplicationUser AppUser
+        {
+            get
+            {
+                if (appUser == null)
+                {
+                    var id = User.Identity.GetUserId();
+                    if (id == null)
+                    {
+                        return null;
+                    }
+
+                    appUser = userManager.FindById(id);
+                }
+
+                return appUser;
+            }
+        }
+
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
@@ -30,8 +52,9 @@ namespace Blog.Controllers
             userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
             // retireve data
-            var data = new BaseViewModel()
+            var data = new BaseVM()
             {
+                DisplayName = GetUserDisplayName(),
                 CanCreatePost = CanCreateNewPost(),
                 GitUrl = ConfigurationManager.AppSettings["GitUrl"],
                 TwitterUrl = ConfigurationManager.AppSettings["TwitterAccount"],
@@ -48,20 +71,23 @@ namespace Blog.Controllers
 
         internal bool CanCreateNewPost()
         {
-            var id = User.Identity.GetUserId();
-            if (id == null)
+            if (AppUser == null)
             {
                 return false;
             }
 
-            var user = userManager.FindById(id);
-            if (user == null)
-            {
-                return false;
-            }
-
-            return user.CanPostBlogEntry;
+            return AppUser.CanPostBlogEntry;
         } 
+
+        internal string GetUserDisplayName()
+        {
+            if (AppUser == null)
+            {
+                return string.Empty;
+            }
+
+            return AppUser.DisplayName;
+        }
 
         private TwitterWidget GetWidgetSettings()
         {

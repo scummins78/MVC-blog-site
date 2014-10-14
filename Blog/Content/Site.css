@@ -482,3 +482,13 @@ div.widget-box .post-box {
     font-size: 14px;
     margin: 0 0 25px 90px;
 }
+
+/*  account related pages  */
+.account-display{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.form-horizontal .control-label {
+text-align: left !important;
+}

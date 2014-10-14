@@ -16,6 +16,7 @@ namespace Authentication.Models
         public bool CanPostBlogEntry { get; set; }
         public bool CanPostComment { get; set; }
 
+        public string DisplayName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

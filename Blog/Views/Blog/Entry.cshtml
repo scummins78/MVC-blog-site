@@ -3,11 +3,13 @@
 @{
     ViewBag.Title = Model.PageTitle;
 }
-    <!-- Page Header -->
-    <header class="entry-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                    
+                <!-- Page Header -->
+                <header class="entry-header">
                     <div class="post-heading">
                         <h1>@Model.Title</h1>
                         <span class="meta">Posted by <a href="#">@Model.Author</a> on @Model.DateTimePosted</span>
@@ -16,28 +18,27 @@
                         {
                             foreach (var tag in Model.Tags)
                             {
-                                <span class="fa fa-tag">@tag.TagValue&nbsp;</span>
+                                <span class="fa fa-tag post-tag">@tag.TagValue&nbsp;</span>
                             }
                         }
                     </div>
-                </div>
-            </div>
-        </div>
-    </header>
+                </header>
 
-    <!-- Preview Image -->
-    <article>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <article>
                     <img class="img-responsive img-main" src="@Model.MainImageUrl" alt="" />
-                        
+
                     <!-- Post Content -->
                     <p>@Html.Raw(Model.BlogText)</p>
-                </div>
+                </article>
+            </div>
+
+            <div class="col-lg-4 col-md-4 widget-column">
+                @Html.Partial("_RecentPosts")
+                @Html.Partial("_Archive")
+                @Html.Partial("_Tags")
             </div>
         </div>
-    </article>
+    </div>
 
     <!-- Blog Comments -->
     <!--

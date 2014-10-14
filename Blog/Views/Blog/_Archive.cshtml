@@ -1,9 +1,11 @@
-﻿<div id="archiveList">
-    <ul data-bind="foreach: Links">
-        <li>
-            <a data-bind="attr: { href: ArchiveUrl }">
+﻿
+<div id="archiveList" class="widget-box">
+    <h3>Archive</h3>   
+    <div>
+        <div class="post-box" data-bind="foreach: Links">
+            <a class="title-link" data-bind="attr: { href: ArchiveUrl }">
                 <span data-bind="text: MonthName"></span>&nbsp;<span data-bind="text: Year"></span>(<span data-bind="text: Instances"></span>)
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>

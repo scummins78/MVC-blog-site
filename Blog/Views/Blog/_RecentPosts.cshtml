@@ -1,13 +1,18 @@
 ﻿
-    <div id="postList">
-    <ul data-bind="foreach: Posts">
-        <li>
+ <div id="postList" class="widget-box">
+    <h3>Recent Posts</h3>   
+     <div data-bind="foreach: Posts">
+        <div class="post-box">
             <a data-bind="attr: { href: PostUrl }">
                 <img data-bind="attr:{ src: MainImageThumbnailUrl }" />
-                <h4 data-bind="text: Title"></h4>
-                <span data-bind="text: Author"></span>
             </a>
-        </li>
-    </ul>
+            <h4>
+            <a class="title-link" data-bind="attr: { href: PostUrl }">
+                <span data-bind="text: Title"></span>
+            </a>
+            </h4>
+            <p>Posted by <span data-bind="text: Author"></span></p>
+        </div>
+    </div>
 </div>
 

@@ -433,10 +433,52 @@ body {
     padding-bottom: 20px;
 }
 
+.post-tag {
+    font-size: 14px;
+}
+
 .entry-link {
     padding-top: 15px;
     padding-bottom: 15px;
 }
 .entry-link a {
     border: 1px solid #dddddd;
+}
+
+
+/* sidebar recent posts */
+div.widget-column {
+    margin-top: 70px;
+}
+
+div.widget-box {
+    margin-left: 15px;
+    margin-bottom: 40px;
+}
+
+div.widget-box h3 {
+    margin-bottom: 15px;
+    border-bottom: 2px solid;
+}
+
+div.widget-box img {
+    height: 75px;
+    width: 75px;
+    float: left;
+}
+
+div.widget-box .title-link {
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+div.widget-box .post-box {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.post-box p {
+    font-size: 14px;
+    margin: 0 0 25px 90px;
 }

@@ -1,9 +1,10 @@
-﻿<div id="tagList">
-    <ul data-bind="foreach: Tags">
-        <li>
-            <a data-bind="attr: { href: TagUrl }">
+﻿<div id="tagList" class="widget-box">
+    <h3>Tags</h3>
+    <div>
+        <div class="post-box" data-bind="foreach: Tags">
+            <a class="title-link" data-bind="attr: { href: TagUrl }">
                 <span data-bind="text: TagValue"></span>(<span data-bind="text: Instances"></span>)
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>

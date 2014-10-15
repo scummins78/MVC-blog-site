@@ -55,6 +55,7 @@ namespace Blog.Controllers
             var data = new BaseVM()
             {
                 DisplayName = GetUserDisplayName(),
+                Email = GetUserEmail(),
                 CanCreatePost = CanCreateNewPost(),
                 GitUrl = ConfigurationManager.AppSettings["GitUrl"],
                 TwitterUrl = ConfigurationManager.AppSettings["TwitterAccount"],
@@ -87,6 +88,16 @@ namespace Blog.Controllers
             }
 
             return AppUser.DisplayName;
+        }
+
+        internal string GetUserEmail()
+        {
+            if (AppUser == null)
+            {
+                return string.Empty;
+            }
+
+            return AppUser.Email;
         }
 
         private TwitterWidget GetWidgetSettings()

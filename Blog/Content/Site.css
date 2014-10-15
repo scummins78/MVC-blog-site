@@ -58,12 +58,21 @@ hr.small {
 .navbar-custom .navbar-brand {
   font-weight: 800;
 }
-.navbar-custom .nav li a {
+.navbar-custom .nav li a, .navbar-custom .nav li span {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1px;
 }
+
+.navbar-custom .nav li.user-display {
+    margin-top: 10px;
+}
+
+.navbar-custom .nav li.user-display img {
+    border-radius: 20px;
+}
+
 @media only screen and (min-width: 768px) {
   .navbar-custom {
     background: transparent;
@@ -492,3 +501,4 @@ div.widget-box .post-box {
 .form-horizontal .control-label {
 text-align: left !important;
 }
+

@@ -8,21 +8,19 @@ namespace Blog
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            bundles.Add(new ScriptBundle("~/bundles/libraries").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/knockout-3.2.0.js"));
+                        "~/Scripts/knockout-3.2.0.js",
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/widgets").Include(
                             "~/Scripts/widgets/RecentPostsVM.js",
                             "~/Scripts/widgets/ArchiveListVM.js",
                             "~/Scripts/widgets/TagListVM.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            bundles.Add(new ScriptBundle("~/bundles/val").Include(
                         "~/Scripts/jquery.validate*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -37,7 +35,12 @@ namespace Blog
             bundles.Add(new ScriptBundle("~/bundles/editor").Include(
                         "~/Scripts/tinymce/tinymce.js",
                         "~/Scripts/texteditor.js"));
-            BundleTable.EnableOptimizations = false;
+
+            #if DEBUG
+                BundleTable.EnableOptimizations = false;
+            #else
+                BundleTable.EnableOptimizations = true;
+            #endif
         }
     }
 }

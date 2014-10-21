@@ -69,7 +69,7 @@ namespace Blog.Tests.Controllers
 
 
             // Act
-            var result = controller.Index(1);
+            var result = controller.Index("default", 1);
 
             // Assert
             Assert.IsNotNull(result);

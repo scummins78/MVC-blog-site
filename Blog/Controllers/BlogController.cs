@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Web.Security.AntiXss;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using DataRepository.Repository;
 using DataRepository.Models;
@@ -54,16 +55,25 @@ namespace Blog.Controllers
         /// <summary>
         /// Gets a list of the latest blogs
         /// </summary>
-        public ActionResult Index(int page)
+        public ActionResult Index(string category, int page)
         {
             try
             {
                 if (page < 1)
                     throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
-
-                // display all the posts
-                var viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page, 
+                
+                // create filter if needed
+                object viewModel = null;
+                if (category == "default"){
+                    viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
                                                         orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+                }
+                else
+                {
+                    viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
+                                                        filter: p => p.Category == category, 
+                                                        orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+                }
 
                 return View("List", viewModel);
             }
@@ -94,11 +104,11 @@ namespace Blog.Controllers
                 var yr = Convert.ToInt32(year);
 
                 // get posts on a given day
-                var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
-                                                                p => p.DateTimePosted.Year == yr &&
+                var viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
+                                                        filter: p => p.DateTimePosted.Year == yr &&
                                                                 p.DateTimePosted.Month == mn &&
                                                                 p.DateTimePosted.Day == dy,
-                                                         q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+                                                         orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
                 return View("List", viewModel);
             }
             catch (Exception ex)
@@ -126,10 +136,10 @@ namespace Blog.Controllers
                 var yr = Convert.ToInt32(year);
 
                 // get posts done in a given month
-                var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
-                                                            p => p.DateTimePosted.Year == yr &&
+                var viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
+                                                            filter: p => p.DateTimePosted.Year == yr &&
                                                                  p.DateTimePosted.Month == mn,
-                                                            q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+                                                            orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
                 return View("List", viewModel);
             }
             catch (Exception ex)
@@ -231,8 +241,17 @@ namespace Blog.Controllers
         {
             try
             {
+                // check to see if user can create posts
+                if (!CanCreateNewPost())
+                {
+                    logger.Error("User does not have the 'CanCreatePost' user right.");
+                    Response.StatusCode = 404;
+                    return View("Error");
+                }
+                
                 model.DateTimePosted = DateTime.Now;
-                model.Author = "Shaun Cummins";
+                model.Author = string.Format("{0} {1}", AppUser.FirstName, AppUser.LastName);
+                model.AuthorId = AppUser.Id;
                 
                 // build url title
                 model.UrlTitle = model.Title.Replace(" ", "-").ToLower();

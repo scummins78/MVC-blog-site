@@ -71,22 +71,33 @@ namespace Blog
                             new { controller = "Blog", action = "NewPost" }
                 );
 
-
-            routes.MapRoute("DefaultFirstPage",
-                            "",
-                            new { controller = "Blog", action = "Index", page = 1 }
-                );
-
-            routes.MapRoute("Default",
-                            "page/{page}",
-                            new { controller = "Blog", action = "Index" }
-                );
-
             routes.MapRoute(
                 name: "Account",
                 url: "Account/{action}",
                 defaults: new { controller = "Account", action = "Login"}
             );
+
+            routes.MapRoute("CategoryFirstPage",
+                            "{category}",
+                            new { controller = "Blog", action = "Index", page = 1 }
+                );
+
+            routes.MapRoute("Category",
+                            "{category}/page/{page}",
+                            new { controller = "Blog", action = "Index" }
+                );
+
+            routes.MapRoute("DefaultFirstPage",
+                            "",
+                            new { controller = "Blog", action = "Index", category = "default", page = 1 }
+                );
+
+            routes.MapRoute("Default",
+                            "page/{page}",
+                            new { controller = "Blog", action = "Index", category = "default" }
+                );
+
+
 
             // fall through for if any other paths don't get picked up
             routes.MapRoute(

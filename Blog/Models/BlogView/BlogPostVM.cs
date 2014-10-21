@@ -15,10 +15,12 @@ namespace Blog.Models.BlogView
 
         // properties
         public string Author { get; set; }
+        public string AuthorId { get; set; }
         public string BlogText { get; set; }
-        public string Title { get; set; }
-        public string MainImageId { get; set; }
+        public string Category { get; set; }
         public DateTime DateTimePosted { get; set; }
+        public string MainImageId { get; set; }
+        public string Title { get; set; }
         public string UrlTitle { get; set; }
         public ICollection<BlogTagVM> Tags { get; set; }
         public ICollection<ImageUrlVM> Images { get; set; }

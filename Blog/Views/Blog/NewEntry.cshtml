@@ -3,37 +3,57 @@
     ViewBag.Title = Model.PageTitle;
 }
 
-<div class="row">
-    <!-- Blog Post Content Column -->
-    <div class="col-lg-12">
+<div class="container">
+    <div class="row">
+        <!-- Blog Post Content Column -->
+        <div class="col-lg-offset-2 col-lg-8 col-md-2 col-md-8">
 
-        @using (Html.BeginForm("NewPost", "Blog", FormMethod.Post))
-        {
-            <h1>Create New Blog Entry</h1>
-            @Html.HiddenFor(model => model.ID)
-            <div class="form-group">
-                <label>Title</label>
-                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "title", maxlength = "100", required = "required" })
-            </div>
+            <!-- Page Header -->
+            <header class="entry-header">
+                <div class="post-heading">
+                    <h1>Create A New Blog Entry</h1>
+                </div>
+            </header>
 
-            <div class="form-group">
-                <label>Blog Text</label>
-                @Html.TextAreaFor(model => model.BlogText, new { @class = "rteditor", rows = "10" })
-            </div>
+            <article>
+                @using (Html.BeginForm("NewPost", "Blog", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.ID)
+                    <div class="form-group">
+                        <label>Title</label>
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "title", maxlength = "100", required = "required" })
+                    </div>
 
-            <div class="form-group">
-                <label>Image Url</label>
-                @Html.TextBoxFor(model => model.MainImageId, new { @class = "form-control", placeholder = "imgur image id", maxlength = "30" })
-            </div>
+                    <div class="form-group">
+                        <label>Post Category</label>
+                        @Html.DropDownListFor(model => model.Category, Model.PossibleCategories, new { @class = "form-control", placeholder = "category", maxlength = "100" })
+                    </div>
 
-            <div class="form-group">
-                <label>Tags</label>
-                @Html.TextBoxFor(model => model.BlogTags, new { @class = "form-control", placeholder = "tags", maxlength = "100" })
-            </div>
-            <input type="submit" value="Create Post!" class="btn btn-primary" />
-        }
+                    <div class="form-group">
+                        <label>Post Text</label>
+                        @Html.TextAreaFor(model => model.BlogText, new { @class = "rteditor", rows = "10" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Image Url</label>
+                        @Html.TextBoxFor(model => model.MainImageId, new { @class = "form-control", placeholder = "imgur image id", maxlength = "30" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tags</label>
+                        @Html.TextBoxFor(model => model.BlogTags, new { @class = "form-control", placeholder = "tags", maxlength = "100" })
+                    </div>
+                    <input type="submit" value="Create Post!" class="btn btn-primary" />
+                }
+            </article>
+        </div>
     </div>
 </div>
-@Scripts.Render("~/bundles/editor")
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/editor")
+    }
+
+
 
 

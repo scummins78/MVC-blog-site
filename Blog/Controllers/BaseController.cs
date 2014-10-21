@@ -25,7 +25,7 @@ namespace Blog.Controllers
         private ApplicationUserManager userManager;
 
         private ApplicationUser appUser = null;
-        private ApplicationUser AppUser
+        public ApplicationUser AppUser
         {
             get
             {

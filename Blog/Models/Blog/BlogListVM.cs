@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DataRepository.Models;
 
-namespace Blog.Models.BlogView
+namespace Blog.Models.Blog
 {
     public class BlogListVM
     {

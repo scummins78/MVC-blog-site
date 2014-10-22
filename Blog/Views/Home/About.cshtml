@@ -1,7 +1,41 @@
-﻿@{
+﻿@model Blog.Models.Home.AboutVM
+@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
 
-<p>Use this area to provide additional information.</p>
+            <!-- Page Header -->
+            <header class="entry-header">
+                <div class="post-heading">
+                    <h1>About the Author</h1>
+                </div>
+            </header>
+
+            <article>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            @Html.Gravatar(Model.ContactEmail, 200, new { Title = "My Avatar", Alt = "Avatar", @class="avatar-display" })
+                        </div>
+                        <div class="col-lg-8">
+                            <p>@Model.AboutText</p>
+                            <br />
+                            Contact Me: &nbsp; <a href="mailto:" @Model.ContactEmail>@Model.ContactEmail</a><br />
+
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-lg-4 col-md-4 widget-column">
+            @Html.Partial("_Widgets")
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/widgets")
+}

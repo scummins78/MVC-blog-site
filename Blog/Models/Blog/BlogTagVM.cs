@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Blog.Models.BlogView
+namespace Blog.Models.Blog
 {
     public class BlogTagVM
     {

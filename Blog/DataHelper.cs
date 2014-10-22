@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 using System.Web.Security.AntiXss;
 using System.Net;
 
+using Blog.Models.Blog;
 using DataRepository.Models;
 using DataRepository.Repository;
-
-using Blog.Models.BlogView;
 using Blog.Models.Widget;
 
 namespace Blog

@@ -6,7 +6,7 @@ using Omu.ValueInjecter;
 using ValueInjecterExtensions;
 using DataRepository.Models;
 
-namespace Blog.Models.BlogView
+namespace Blog.Models.Blog
 {
     public class BlogEntryVM : BlogPostVM
     {

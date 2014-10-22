@@ -4,9 +4,9 @@ using System.Web.Security.AntiXss;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using Blog.Models.Blog;
 using DataRepository.Repository;
 using DataRepository.Models;
-using Blog.Models.BlogView;
 using NLog;
 
 namespace Blog.Controllers

@@ -502,3 +502,7 @@ div.widget-box .post-box {
 text-align: left !important;
 }
 
+.avatar-display {
+    border-radius: 100px;
+}
+

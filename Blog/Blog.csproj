@@ -232,6 +232,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\ajax-loader.gif" />
+    <Content Include="img\home-bg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="PrivateSettings.config" />
@@ -477,14 +479,13 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
-    <Content Include="Views\Shared\_RecentPosts.cshtml" />
-    <Content Include="Views\Shared\_Archive.cshtml" />
-    <Content Include="Views\Shared\_Tags.cshtml" />
+    <Content Include="Views\Widget\_RecentPosts.cshtml" />
+    <Content Include="Views\Widget\_Archive.cshtml" />
+    <Content Include="Views\Widget\_Tags.cshtml" />
     <Content Include="Views\Shared\_Widgets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

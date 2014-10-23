@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\WidgetController.cs" />
@@ -228,6 +229,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dashboard.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -468,7 +470,7 @@
     <Content Include="Views\Blog\_Twitter.cshtml" />
     <Content Include="Views\Blog\Entry.cshtml" />
     <Content Include="Views\Blog\List.cshtml" />
-    <Content Include="Views\Blog\NewEntry.cshtml" />
+    <Content Include="Views\Dashboard\Entry.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
@@ -483,6 +485,9 @@
     <Content Include="Views\Widget\_Archive.cshtml" />
     <Content Include="Views\Widget\_Tags.cshtml" />
     <Content Include="Views\Shared\_Widgets.cshtml" />
+    <Content Include="Views\Dashboard\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

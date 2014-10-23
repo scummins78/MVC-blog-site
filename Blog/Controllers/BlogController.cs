@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Web.Security.AntiXss;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web.Mvc;
-using Blog.Models.Blog;
 using DataRepository.Repository;
-using DataRepository.Models;
 using NLog;
 
 namespace Blog.Controllers
@@ -48,7 +43,7 @@ namespace Blog.Controllers
             {
                 return HandleExceptions(
                     string.Format("Error occurred in Entry.  Parameters: {0}, {1}, {2}, {3}",
-                    year, month, day, title), ex);
+                    year, month, day, title), ex, logger);
             }
         }
 
@@ -79,9 +74,8 @@ namespace Blog.Controllers
             }
             catch (Exception ex)
             {
-                // add logging
                 return HandleExceptions(
-                    string.Format("Error occurred in Entry.  Parameters: page- {0}", page), ex);
+                    string.Format("Error occurred in Entry.  Parameters: page- {0}", page), ex, logger);
             }
         }
 
@@ -115,7 +109,7 @@ namespace Blog.Controllers
             {
                 return HandleExceptions(
                     string.Format("Error occurred in ByDay.  Parameters- year: {0}, month: {1}, day: {2}, page: {3}",
-                    year, month, day, page), ex);
+                    year, month, day, page), ex, logger);
             }
         }
 
@@ -146,7 +140,7 @@ namespace Blog.Controllers
             {
                 return HandleExceptions(
                     string.Format("Error occurred in ByMonth.  Parameters- year: {0}, month: {1}, page: {2}",
-                    year, month, page), ex);
+                    year, month, page), ex, logger);
             }
         }
 
@@ -174,7 +168,7 @@ namespace Blog.Controllers
             {
                 return HandleExceptions(
                     string.Format("Error occurred in ByYear.  Parameters- year: {0} page: {1}",
-                    year, page), ex);
+                    year, page), ex, logger);
             }
         }
 
@@ -203,124 +197,8 @@ namespace Blog.Controllers
             {
                 return HandleExceptions(
                     string.Format("Error occurred in ByTag.  Parameters- tag: {0} page: {1}",
-                    tag, page), ex);
+                    tag, page), ex, logger);
             }
-        }
-
-        #region editing and creating posts
-
-        /// <summary>
-        /// displays blog entry screen
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult NewPost()
-        {
-            try
-            { 
-                // check to see if user can create posts
-                if (!CanCreateNewPost())
-                {
-                    logger.Error("User does not have the 'CanCreatePost' user right.");
-                    Response.StatusCode = 404;
-                    return View("Error");
-                }
-
-                var model = BlogEntryVM.BuildViewModel(dataHelper.GetNewPost());
-                model.PageTitle = "Blog Post";
-
-                return View("NewEntry", model);
-            }
-            catch (Exception ex)
-            {
-                return HandleExceptions("Error occurred in NewPost Get.", ex);
-            }
-        }
-
-        [HttpPost, ValidateInput(false)]
-        public ActionResult NewPost(BlogEntryVM model)
-        {
-            try
-            {
-                // check to see if user can create posts
-                if (!CanCreateNewPost())
-                {
-                    logger.Error("User does not have the 'CanCreatePost' user right.");
-                    Response.StatusCode = 404;
-                    return View("Error");
-                }
-                
-                model.DateTimePosted = DateTime.Now;
-                model.Author = string.Format("{0} {1}", AppUser.FirstName, AppUser.LastName);
-                model.AuthorId = AppUser.Id;
-                
-                // build url title
-                model.UrlTitle = model.Title.Replace(" ", "-").ToLower();
-
-                // take the entered tags and build blog tag objects
-                model.Tags = BuildTags(model.BlogTags);
-
-                // persist blog
-                var rowsCreated = dataHelper.InsertOrUpdate(FlattenBlogPostModel(model));
-
-                if (rowsCreated == 0)
-                {
-                    // in here handle issues;  maybe throw exception?
-                }
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                return HandleExceptions("Error occurred in NewPost POST.", ex);
-            }
-        }
-
-        #endregion
-
-        #region Helper methods
-
-        /// <summary>
-        /// Takes blogpost view model and creates data post
-        /// </summary>
-        /// <param name="newPost"></param>
-        /// <returns></returns>
-        private BlogPost FlattenBlogPostModel(BlogPostVM newPost)
-        {
-            return newPost.BuildModel();
-        }
-
-        /// <summary>
-        /// Takes a comma delimited string and builds tag objects from it
-        /// </summary>
-        /// <param name="tagString">string of tags</param>
-        /// <returns></returns>
-        private static ObservableCollection<BlogTagVM> BuildTags(string tagString) {
-
-            var tags = new ObservableCollection<BlogTagVM>();
-            if (tagString == null || tagString.Length == 0) return tags;
-            
-            tagString = AntiXssEncoder.HtmlEncode(tagString, true);
-            var tagArray = tagString.Split(',');
-            
-            
-            foreach (var tag in tagArray){
-                tags.Add(new BlogTagVM()
-                {
-                    TagValue = tag
-                });
-            }
-
-            return tags;
-        }
-
-        #endregion
-
-        private ActionResult HandleExceptions(string message, Exception ex)
-        {
-            // log error
-            logger.Error(message, ex);
-
-            Response.StatusCode = 500;
-            return View("Error");
         }
 
         protected override void Dispose(bool disposing)

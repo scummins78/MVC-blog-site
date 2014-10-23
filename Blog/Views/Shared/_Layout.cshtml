@@ -44,7 +44,7 @@
                     <!-- limit this to logged in users with rights -->
                     @if (ViewBag.UserData.CanCreatePost)
                     {
-                        <li>@Html.ActionLink("New Post", "NewPost", "Blog")</li>
+                        <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
                     }
                 </ul>
             </div>

@@ -26,6 +26,10 @@ namespace Blog
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new StyleBundle("~/Content/dash/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/dashboard.css"));
+
             // add app style and javascript
             bundles.Add(new ScriptBundle("~/js").Include(
                 "~/Scripts/navigation.js",

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/dash/css")
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index", "Blog")">shauncummins.com</a>
+            </div>
+            <!-- Top Menu Items -->
+            @Html.Partial("_LoginPartial")
+            <ul class="nav navbar-nav navbar-left">
+                <li>@Html.ActionLink("Home", "Index", "Blog")</li>
+            </ul>
+        </nav>
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li>
+                    @Html.ActionLink("Dashboard", "Index", "Dashboard")
+                </li>
+                <li>
+                    @Html.ActionLink("New Post", "BlogPost", "Dashboard")
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        @RenderBody()
+        <!-- /#page-content-wrapper -->
+
+</div>
+
+    @Scripts.Render("~/bundles/libraries")
+    @RenderSection("scripts", required: false)
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>
+

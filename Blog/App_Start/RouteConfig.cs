@@ -66,15 +66,16 @@ namespace Blog
                             new { controller = "Home", action = "About" }
                 );
 
-            routes.MapRoute("NewPost",
-                            "newpost",
-                            new { controller = "Blog", action = "NewPost" }
-                );
-
             routes.MapRoute(
                 name: "Account",
                 url: "Account/{action}",
                 defaults: new { controller = "Account", action = "Login"}
+            );
+
+            routes.MapRoute(
+                name: "Dashboard",
+                url: "Dashboard/{action}/{id}",
+                defaults: new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional}
             );
 
             routes.MapRoute("CategoryFirstPage",

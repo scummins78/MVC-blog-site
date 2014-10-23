@@ -31,16 +31,13 @@
             </div>
             <!-- Top Menu Items -->
             @Html.Partial("_LoginPartial")
-            <ul class="nav navbar-nav navbar-left">
-                <li>@Html.ActionLink("Home", "Index", "Blog")</li>
-            </ul>
         </nav>
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li>
-                    @Html.ActionLink("Dashboard", "Index", "Dashboard")
+                    @Html.ActionLink("Post List", "Index", "Dashboard")
                 </li>
                 <li>
                     @Html.ActionLink("New Post", "BlogPost", "Dashboard")
@@ -49,7 +46,10 @@
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        @RenderBody()
+        <div id="page-content-wrapper">
+            @RenderBody()
+        </div>
+        
         <!-- /#page-content-wrapper -->
 
 </div>

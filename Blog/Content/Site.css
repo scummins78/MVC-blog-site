@@ -65,12 +65,16 @@ hr.small {
   letter-spacing: 1px;
 }
 
-.navbar-custom .nav li.user-display {
-    margin-top: 10px;
-}
-
 .navbar-custom .nav li.user-display img {
     border-radius: 20px;
+}
+
+.dropdown-menu a {
+    padding: 10px !important;
+}
+
+.navbar-custom .nav li.user-display a {
+    padding: 10px !important;
 }
 
 @media only screen and (min-width: 768px) {

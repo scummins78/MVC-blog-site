@@ -31,9 +31,9 @@ namespace Blog
                       "~/Content/dashboard.css"));
 
             // add app style and javascript
-            bundles.Add(new ScriptBundle("~/js").Include(
-                "~/Scripts/navigation.js",
-                "~/Scripts/socialmediaapi.js"));
+            //bundles.Add(new ScriptBundle("~/js").Include(
+            //    "~/Scripts/navigation.js",
+            //    "~/Scripts/socialmediaapi.js"));
 
             // scripts needed for blog editing
             bundles.Add(new ScriptBundle("~/bundles/editor").Include(

@@ -24,7 +24,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index", "Blog")">shauncummins.com</a>
+                <a class="navbar-brand" href="@Url.Action("Index", "Blog", new { page = 1, category = "default" })">shauncummins.com</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -95,7 +95,37 @@
         </div>
     </footer>
     @Scripts.Render("~/bundles/libraries")
-    @Scripts.Render("~/js")
+    <script type="text/javascript">
+        // Navigation Scripts to Show Header on Scroll-Up
+        jQuery(document).ready(function ($) {
+            var MQL = 1170;
+
+            //primary navigation slide-in effect
+            if ($(window).width() > MQL) {
+                var headerHeight = $('.navbar-custom').height();
+                $(window).on('scroll', {
+                    previousTop: 0
+                },
+                    function () {
+                        var currentTop = $(window).scrollTop();
+                        //check if user is scrolling up
+                        if (currentTop < this.previousTop) {
+                            //if scrolling up...
+                            if ($('.navbar-custom').hasClass('is-fixed')) {
+                                $('.navbar-custom').addClass('is-visible');
+                            } else {
+                                $('.navbar-custom').removeClass('is-visible is-fixed');
+                            }
+                        } else {
+                            //if scrolling down...
+                            $('.navbar-custom').removeClass('is-visible');
+                            if (currentTop > headerHeight && !$('.navbar-custom').hasClass('is-fixed')) $('.navbar-custom').addClass('is-fixed');
+                        }
+                        this.previousTop = currentTop;
+                    });
+            }
+        });
+    </script>
     
     @RenderSection("scripts", required: false)
 </body>

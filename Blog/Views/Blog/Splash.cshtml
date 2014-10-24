@@ -1,0 +1,110 @@
+﻿@model Blog.Models.Blog.BlogListVM
+
+@{
+    Layout = "~/Views/Shared/_SplashLayout.cshtml";
+    ViewBag.Title = Model.PageTitle;
+}
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>@Model.Heading</h1>
+                    <hr class="small">
+                    <span class="subheading">@Model.SubHeading</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <!-- main column-->
+        <div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1">
+
+            @foreach (var post in Model.BlogPosts)
+            {
+                <div class="post-preview">
+                    <div class="post-title-block">
+                        <a href="@Url.Action("Entry", "Blog",
+                            new
+                             {
+                                year = post.DateTimePosted.Year,
+                                month = post.DateTimePosted.Month,
+                                day = post.DateTimePosted.Day,
+                                title = post.UrlTitle
+                             }
+                         )">
+                            <h2 class="post-title">
+                                @post.Title
+                            </h2>
+                        </a>
+                        <span class="meta">Posted by <a href="#">@post.Author</a> on @post.DateTimePosted</span>
+                        <br />
+                        @if (post.Tags.Count > 0)
+                        {
+                            foreach (var tag in post.Tags)
+                            {
+                                <span class="fa fa-tag post-tag">@tag.TagValue&nbsp;</span>
+                            }
+                        }
+                    </div>
+                    <img class="img-responsive img-main" src="@post.MainImageUrl" alt="" />
+                    <p class="post-subtitle">
+                        @post.BlogSummary
+                    </p>
+                    <div class="entry-link">
+                        <a href="@Url.Action("Entry", "Blog",
+                            new
+                             {
+                                year = post.DateTimePosted.Year,
+                                month = post.DateTimePosted.Month,
+                                day = post.DateTimePosted.Day,
+                                title = post.UrlTitle
+                             }
+                         )">Read More &rarr;</a>
+                    </div>
+
+                </div>
+                <hr>
+            }
+
+            <!-- Pager -->
+            <ul class="pager">
+                @if (Model.HasPreviousPage)
+                {
+                    <li class="previous">
+                        <a href="@Url.Current(new { page = Model.Page - 1 })">&larr; Posts</a>
+                    </li>
+                }
+                @if (Model.HasNextPage)
+                {
+                    <li class="next">
+                        <a href="@Url.Current(new { page = Model.Page + 1 })">Older &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!-- side widget column -->
+        <div class="col-lg-4 col-md-4">
+            @Html.Partial("_Widgets")
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/widgets")
+}
+
+
+
+
+
+
+

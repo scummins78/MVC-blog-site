@@ -157,9 +157,9 @@ namespace Blog
         {
             return new BlogListVM(itemsPerPage, page, totalPostCount, posts)
             {
-                Heading = "Adventures in Homebrew",
-                SubHeading = "The Trials and Tribulations of First Time Homebrewing",
-                PageTitle = "Blog Home"
+                Heading = "Under Construction",
+                SubHeading = "A Work In Progress Blog Site",
+                PageTitle = "Under Construction"
             };
         }
 

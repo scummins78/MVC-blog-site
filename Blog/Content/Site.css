@@ -53,7 +53,7 @@ hr.small {
   width: 100%;
   z-index: 3;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  box-shadow: 0px .5px 5px rgba(235, 235, 235, 0.78);
+  /*box-shadow: 0px .5px 5px rgba(235, 235, 235, 0.78);*/
 }
 .navbar-custom .navbar-brand {
   font-weight: 800;
@@ -76,6 +76,15 @@ hr.small {
 .navbar-custom .nav li.user-display a {
     padding: 10px !important;
 }
+
+.navbar-custom .nav li.dropdown ul a {
+    color: #404040;
+  }
+  .navbar-custom .nav li.dropdown ul a:hover,
+  .navbar-custom .nav li.dropdown ul a:focus {
+    color: #404040;
+  }
+
 
 @media only screen and (min-width: 768px) {
   .navbar-custom {
@@ -166,8 +175,8 @@ hr.small {
   .intro-header .site-heading,
   .intro-header .post-heading,
   .intro-header .page-heading {
-    padding-bottom: 70px;
-    padding-top: 140px;
+    padding-bottom: 90px;
+    padding-top: 120px;
   }
 }
 .intro-header .site-heading,

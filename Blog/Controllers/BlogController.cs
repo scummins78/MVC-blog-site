@@ -70,7 +70,14 @@ namespace Blog.Controllers
                                                         orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
                 }
 
+                // if this is page 1 with the default category, show splash
+                if (page == 1 && category == "default")
+                {
+                    return View("Splash", viewModel);
+                }
+
                 return View("List", viewModel);
+                
             }
             catch (Exception ex)
             {

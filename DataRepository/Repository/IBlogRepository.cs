@@ -25,6 +25,10 @@ namespace DataRepository.Repository
 
         Task<BlogPost> FindPostAsync(DateTime dateFilter, string title);
 
+        BlogPost RetrievePost(int id);
+
+        Task<BlogPost> RetrievePostAsync(int id);
+
         List<TagItem> GetDistinctTags();
 
         Task<List<TagItem>> GetDistinctTagsAsync();

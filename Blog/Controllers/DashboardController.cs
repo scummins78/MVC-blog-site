@@ -48,8 +48,17 @@ namespace Blog.Controllers
                     Response.StatusCode = 404;
                     return View("Error");
                 }
+                BlogPost post;
+                if (id > 0)
+                {
+                    post = dataHelper.RetrievePost(id);
+                }
+                else
+                {
+                    post = dataHelper.GetNewPost();
+                }
 
-                var model = BlogEntryVM.BuildViewModel(dataHelper.GetNewPost());
+                var model = BlogEntryVM.BuildViewModel(post);
                 model.PageTitle = "Blog Post";
 
                 return View("Entry", model);

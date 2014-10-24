@@ -119,6 +119,20 @@ namespace DataRepository.Repository.EF
                         .Include("Images").FirstOrDefaultAsync();
         }
 
+        public BlogPost RetrievePost(int id)
+        {
+            return context.BlogPosts.Where(p => p.ID == id)
+                                    .Include("Tags")
+                                    .Include("Images").FirstOrDefault();
+        }
+
+        public Task<BlogPost> RetrievePostAsync(int id)
+        {
+            return context.BlogPosts.Where(p => p.ID == id)
+                                    .Include("Tags")
+                                    .Include("Images").FirstOrDefaultAsync();
+        }
+
         public int GetPostCount(Expression<Func<BlogPost, bool>> filter = null)
         {
             IQueryable<BlogPost> query = context.BlogPosts;

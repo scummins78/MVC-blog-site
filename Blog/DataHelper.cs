@@ -108,6 +108,12 @@ namespace Blog
             return blogRepository.GetNewPost();
         }
 
+        public BlogPost RetrievePost(int id)
+        {
+            var post = blogRepository.RetrievePost(id);
+            return DecodeHtmlForDisplay(post);
+        }
+
         #endregion
 
         #region scrubbing and decoding

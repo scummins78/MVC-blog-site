@@ -193,7 +193,7 @@ namespace DataRepository.Repository.EF
             else
             {
                 var postEntry = context.Entry(post);
-                postEntry.CurrentValues.SetValues(post);
+                postEntry.CurrentValues.SetValues(blogPost);
             }
 
             return context.SaveChanges();
@@ -209,7 +209,7 @@ namespace DataRepository.Repository.EF
             else
             {
                 var postEntry = context.Entry(post);
-                postEntry.CurrentValues.SetValues(post);
+                postEntry.CurrentValues.SetValues(blogPost);
             }
 
             return context.SaveChangesAsync();

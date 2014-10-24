@@ -73,6 +73,12 @@ namespace Blog
             );
 
             routes.MapRoute(
+                name: "DashboardPosts",
+                url: "Dashboard/BlogList/{page}",
+                defaults: new { controller = "Dashboard", action = "BlogList", page = UrlParameter.Optional}
+            );
+
+            routes.MapRoute(
                 name: "Dashboard",
                 url: "Dashboard/{action}/{id}",
                 defaults: new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional}

@@ -121,5 +121,14 @@ namespace Blog.Controllers
             Response.StatusCode = 500;
             return View("Error");
         }
+
+        internal JsonResult HandleAjaxExceptions(string message, Exception ex, Logger logger)
+        {
+            // log error
+            logger.Error(message, ex);
+
+            Response.StatusCode = 500;
+            return Json(new JsonReturnObject(null, Response.StatusCode, false), JsonRequestBehavior.AllowGet);
+        }
     }
 }

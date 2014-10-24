@@ -16,7 +16,7 @@
             </header>
 
             <article>
-                @using (Html.BeginForm("NewPost", "Blog", FormMethod.Post))
+                @using (Html.BeginForm("BlogPost", "Dashboard", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(model => model.ID)

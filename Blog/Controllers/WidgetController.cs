@@ -32,7 +32,7 @@ namespace Blog.Controllers
             }
             catch (Exception ex)
             {
-                return HandleExceptions("Error occurred retrieving tag list.", ex);
+                return HandleAjaxExceptions("Error occurred retrieving tag list.", ex, logger);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Blog.Controllers
             }
             catch (Exception ex)
             {
-                return HandleExceptions("Error occurred retrieving archive list.", ex);
+                return HandleAjaxExceptions("Error occurred retrieving archive list.", ex, logger);
             }
         }
 
@@ -67,17 +67,8 @@ namespace Blog.Controllers
             }
             catch (Exception ex)
             {
-                return HandleExceptions("Error occurred retrieving recent list.", ex);
+                return HandleAjaxExceptions("Error occurred retrieving recent list.", ex, logger);
             }
-        }
-
-        private JsonResult HandleExceptions(string message, Exception ex)
-        {
-            // log error
-            logger.Error(message, ex);
-
-            Response.StatusCode = 500;
-            return Json(new JsonReturnObject(null, Response.StatusCode, false), JsonRequestBehavior.AllowGet);
         }
     }
 }

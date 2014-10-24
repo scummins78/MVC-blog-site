@@ -32,7 +32,7 @@ namespace Blog.Models.Blog
             }
         }
 
-        public static BlogEntryVM BuildViewModel(BlogPost post)
+        public static new BlogEntryVM BuildViewModel(BlogPost post)
         {
             var viewModel = new BlogEntryVM();
             viewModel.InjectFrom<DeepCloneInjection>(post);

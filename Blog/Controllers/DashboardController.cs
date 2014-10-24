@@ -2,10 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Web.Security.AntiXss;
 using System.Linq;
-using System.Web;
-
 using System.Web.Mvc;
 
+using Blog.Models;
 using Blog.Models.Blog;
 using DataRepository.Repository;
 using DataRepository.Models;
@@ -29,6 +28,24 @@ namespace Blog.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        /// <summary>
+        /// Endpoint for retrieving posts to list in dashboard
+        /// </summary>
+        /// <returns>json blog list</returns>
+        public JsonResult BlogList(int page = 1)
+        {
+            try
+            {
+                // get tag list
+                var posts = dataHelper.GetBlogItemsAsync(40, page).Result;
+                return Json(new JsonReturnObject(posts, Response.StatusCode, true), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return HandleAjaxExceptions("Error occurred retrieving blog list.", ex, logger);
+            }
         }
 
         #region editing and creating posts

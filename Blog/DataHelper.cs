@@ -7,9 +7,11 @@ using System.Web.Security.AntiXss;
 using System.Net;
 
 using Blog.Models.Blog;
+using Blog.Models.Dashboard;
+using Blog.Models.Widget;
 using DataRepository.Models;
 using DataRepository.Repository;
-using Blog.Models.Widget;
+
 
 namespace Blog
 {
@@ -28,7 +30,7 @@ namespace Blog
         #region search methods
 
         /// <summary>
-        /// Retrieves posts and builds
+        /// Retrieves posts and builds a view model for display
         /// </summary>
         /// <param name="postCount">number of posts per page</param>
         /// <param name="page">page being requested</param>
@@ -49,10 +51,10 @@ namespace Blog
         }
 
         /// <summary>
-        /// 
+        /// Retrieves post based on the date posted and post title
         /// </summary>
-        /// <param name="dateFilter"></param>
-        /// <param name="title"></param>
+        /// <param name="dateFilter">date to filter by</param>
+        /// <param name="title">title to filter by</param>
         /// <returns></returns>
         public async Task<BlogEntryVM> FindPostAsync(DateTime dateFilter, string title)
         {
@@ -64,18 +66,32 @@ namespace Blog
             return model;
         }
 
+        /// <summary>
+        /// Retrieves a list of all of the unique tags, along with the amount of times
+        /// those tags were used.  Grouped by amount
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<TagLinkVM>> GetTagsAsync()
         {
             var tags = await blogRepository.GetDistinctTagsAsync().ConfigureAwait(false);
             return tags.Select(t => TagLinkVM.BuildTagLinkVM(t)).ToList();
         }
 
+        /// <summary>
+        /// Retrieves a list of the month and date of all of the active posts, ordered
+        /// and grouped by amount
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<ArchiveLinkVM>> GetArchiveLinksAsync()
         {
             var links = await blogRepository.GetArchiveItemsAsync().ConfigureAwait(false);
             return links.Select(l => ArchiveLinkVM.BuildArchiveLinkVM(l)).ToList();
         }
 
+        /// <summary>
+        /// Retrieves a list of the last 5 recent posts.  
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<RecentPostLinkVM>> GetRecentPostLinksAsync()
         {
             var posts = await blogRepository.GetPostsAsync(skip: 0, pageSize: 5,
@@ -85,6 +101,26 @@ namespace Blog
             return posts.Select(p => RecentPostLinkVM.BuildRecentPostLinkVM(p)).ToList();
         }
 
+        /// <summary>
+        /// Retrieves a list of blog posts based on the page properties.  For display in the 
+        /// dashboard
+        /// </summary>
+        /// <param name="itemsPerPage">number of items to retrieve</param>
+        /// <param name="page">page of items to retrieve</param>
+        /// <returns></returns>
+        public async Task<List<BlogItemVM>> GetBlogItemsAsync(int itemsPerPage = 10, int page = 1)
+        {
+            var postCount = await blogRepository.GetPostCountAsync().ConfigureAwait(false);
+
+            // retrieve a 'page' of items
+            var startingPoint = page > 1 ? itemsPerPage * (page - 1) : 0;
+
+            var posts = await blogRepository.GetPostsAsync(skip: startingPoint, pageSize: itemsPerPage,
+                                        orderBy: q => q.OrderByDescending(p => p.DateTimePosted),
+                                        includeChildren: true).ConfigureAwait(false);
+
+            return posts.Select(p => BlogItemVM.BuildViewModel(p)).ToList();
+        }
 
         #endregion
 

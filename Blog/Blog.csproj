@@ -216,6 +216,7 @@
     <Compile Include="Models\Blog\BlogTagVM.cs" />
     <Compile Include="Models\Blog\BlogPostVM.cs" />
     <Compile Include="Models\Blog\ImageUrlVM.cs" />
+    <Compile Include="Models\Dashboard\BlogItemVM.cs" />
     <Compile Include="Models\Home\AboutVM.cs" />
     <Compile Include="Models\JsonReturnObject.cs" />
     <Compile Include="Models\Manage\ManageViewModels.cs" />

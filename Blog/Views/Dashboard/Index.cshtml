@@ -3,7 +3,7 @@
 }
 
 <div class="container">
-    <div class="row">
+    <div class="row" id="blogtable">
         <!-- Blog Post Content Column -->
         <div class="col-lg-offset-2 col-lg-8 col-md-2 col-md-8">
 
@@ -14,19 +14,26 @@
                 </div>
             </header>
         </div>
-
+        <span id="loading" data-bind="visible: IsLoading"><img src="~img/ajax-loader.gif" /></span>
         <div>
-
-            <!-- TODO:  add code to retrieve table of data -->
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th><th>Title</th><th>Author</th><th>Category</th><th>Date Posted</th><th>Text</th>
+                        <th><input type="checkbox"/></th><th>Title</th><th>Author</th><th>Category</th><th>Date Posted</th><th>Tags</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody data-bind="foreach: Posts">
                     <tr>
-                        <td>11</td><td>Dummmy Data</td><td>Shaun Cummins</td><td>Test</td><td>10/23/2014</td><td>Sample blog text</td>
+                        <td>
+                            <input type="checkbox"/>
+                        </td>
+                        <td>
+                            <a data-bind="attr: { href: EditPostUrl }"><span data-bind="text: Title"></span></a>
+                        </td>
+                        <td data-bind="text: Author"></td>
+                        <td data-bind="text: Category"></td>
+                        <td data-bind="text: DatePosted"></td>
+                        <td data-bind="text: TagList"></td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -39,5 +46,13 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/dashboard")
+}
+
+
+
+
 
 

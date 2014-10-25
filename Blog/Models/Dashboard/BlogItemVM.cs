@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,7 +17,6 @@ namespace Blog.Models.Dashboard
         // properties
         public int ID { get; set; }
         public string Author { get; set; }
-        public string BlogText { get; set; }
         public string Category { get; set; }
         public DateTime DateTimePosted { get; set; }
         public string Title { get; set; }
@@ -37,7 +37,23 @@ namespace Blog.Models.Dashboard
                 return url;
             }
         }
-        
+
+        public string TagList
+        {
+            get
+            {
+                return String.Join(",", Tags.Select(t => t.TagValue).ToList());
+            }
+        }
+
+        public string DatePosted
+        {
+            get
+            {
+                return DateTimePosted.ToString("MM/dd/yyyy HH:mm:ss.fff",
+                                CultureInfo.InvariantCulture);
+            }
+        }
 
         public string EditPostUrl
         {

@@ -61,7 +61,7 @@ namespace Blog
             var post = await blogRepository.FindPostAsync(dateFilter, title).ConfigureAwait(false);
 
             var model = BlogEntryVM.BuildViewModel(DecodeHtmlForDisplay(post));
-            model.PageTitle = "Blog Post";
+            model.PageTitle = model.Title;
 
             return model;
         }
@@ -108,7 +108,7 @@ namespace Blog
         /// <param name="itemsPerPage">number of items to retrieve</param>
         /// <param name="page">page of items to retrieve</param>
         /// <returns></returns>
-        public async Task<List<BlogItemVM>> GetBlogItemsAsync(int itemsPerPage = 10, int page = 1)
+        public async Task<BlogTableVM> GetBlogItemsAsync(int itemsPerPage = 10, int page = 1)
         {
             var postCount = await blogRepository.GetPostCountAsync().ConfigureAwait(false);
 
@@ -119,7 +119,14 @@ namespace Blog
                                         orderBy: q => q.OrderByDescending(p => p.DateTimePosted),
                                         includeChildren: true).ConfigureAwait(false);
 
-            return posts.Select(p => BlogItemVM.BuildViewModel(p)).ToList();
+            var viewModel = new BlogTableVM(itemsPerPage)
+            {
+                CurrentPage = page,
+                PostCount = postCount,
+                Posts = posts.Select(p => BlogItemVM.BuildViewModel(p)).ToList()
+            };
+
+            return viewModel;
         }
 
         #endregion

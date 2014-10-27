@@ -217,6 +217,7 @@
     <Compile Include="Models\Blog\BlogPostVM.cs" />
     <Compile Include="Models\Blog\ImageUrlVM.cs" />
     <Compile Include="Models\Dashboard\BlogItemVM.cs" />
+    <Compile Include="Models\Dashboard\BlogTableVM.cs" />
     <Compile Include="Models\Home\AboutVM.cs" />
     <Compile Include="Models\JsonReturnObject.cs" />
     <Compile Include="Models\Manage\ManageViewModels.cs" />
@@ -242,7 +243,7 @@
     <Content Include="PrivateSettings.config" />
     <Content Include="ConnectionStrings.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\dashboard\BlogItemVM.js" />
+    <Content Include="Scripts\dashboard\BlogTableVM.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

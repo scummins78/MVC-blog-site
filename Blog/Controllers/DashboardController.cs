@@ -39,8 +39,8 @@ namespace Blog.Controllers
             try
             {
                 // get tag list
-                var posts = dataHelper.GetBlogItemsAsync(40, page).Result;
-                return Json(new JsonReturnObject(posts, Response.StatusCode, true), JsonRequestBehavior.AllowGet);
+                var viewModel = dataHelper.GetBlogItemsAsync(40, page).Result;
+                return Json(new JsonReturnObject(viewModel, Response.StatusCode, true), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

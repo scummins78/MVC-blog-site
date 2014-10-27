@@ -14,7 +14,7 @@
                 </div>
             </header>
         </div>
-        <span id="loading" data-bind="visible: IsLoading"><img src="~img/ajax-loader.gif" /></span>
+        <span id="loading" data-bind="visible: IsLoading"><img src="img/ajax-loader.gif" /></span>
         <div>
             <table class="table table-hover">
                 <thead>
@@ -36,12 +36,13 @@
                         <td data-bind="text: TagList"></td>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        
-                    </tr>
-                </tfoot>
             </table>
+            <div id="pager">
+                Total Posts:<span data-bind="text: PostCount"></span>
+                <button data-bind="click: PreviousPage">previous page</button>
+                <span data-bind="text: CurrentPage"></span>
+                <button data-bind="click: NextPage">next page</button>
+            </div>
 
         </div>
     </div>

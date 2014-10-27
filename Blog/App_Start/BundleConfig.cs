@@ -20,7 +20,7 @@ namespace Blog
                             "~/Scripts/widgets/TagListVM.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
-                            "~/Scripts/dashboard/BlogItemVM.js"));
+                            "~/Scripts/dashboard/BlogTableVM.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/val").Include(
                         "~/Scripts/jquery.validate*"));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -28,6 +29,16 @@ namespace DataRepository.Repository.EF
 	                                        ORDER BY DATEPART(year,[DateTimePosted]), 
                                                 DATEPART(month,[DateTimePosted])";
 
+        readonly string fullTextSql = @"SELECT [ID], [Title], [Author], [DateTimePosted], [MainImageId],
+		                                        [BlogText], [UrlTitle], [AuthorId], [Category], RowNum 
+                                        FROM
+			                                (   SELECT TOP (@endRow) [ID], ROW_NUMBER() OVER(ORDER BY [DateTimePosted] DESC) AS RowNum, 
+                                                    [Title], [Author], [DateTimePosted], [MainImageId], [BlogText], [UrlTitle], [AuthorId], [Category]
+                                                FROM [BlogDB].[dbo].[BlogPosts]
+                                                WHERE CONTAINS(([Title], [BlogText], [Category]), @searchTerm)
+                                            ) AS BlogInfo
+                                        WHERE RowNum BETWEEN @startRow AND @endRow";
+
         public DBRepository(BlogPostContext context)
         {
             this.context = context;
@@ -35,6 +46,15 @@ namespace DataRepository.Repository.EF
 
         #region Search
 
+        /// <summary>
+        /// Gets a collection of posts based on given criteria
+        /// </summary>
+        /// <param name="skip">number of posts to skip for start index</param>
+        /// <param name="pageSize">number of items to return</param>
+        /// <param name="filter">Expression to filter list by</param>
+        /// <param name="orderBy">expression to order list by</param>
+        /// <param name="includeChildren">include child items</param>
+        /// <returns></returns>
         public List<BlogPost> GetPosts(int skip = 0, int pageSize = 10, Expression<Func<BlogPost, bool>> filter = null,
                                 Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null, bool includeChildren = true)
         {
@@ -94,6 +114,23 @@ namespace DataRepository.Repository.EF
                 return query.Skip(skip)
                             .Take(pageSize).ToListAsync();
             }
+        }
+
+        /// <summary>
+        /// Does a full text search to retrieve any posts that mention a search term
+        /// </summary>
+        /// <param name="skip">number of posts to skip for start index</param>
+        /// <param name="pageSize">number of items to return</param>
+        /// <param name="searchTerm">term to search for</param>
+        /// <param name="orderBy">expression to order list by</param>
+        /// <param name="includeChildren">include child items</param>
+        /// <returns></returns>
+        public List<BlogPost> SearchPosts(string searchTerm, int skip = 0, int pageSize = 10)
+        {
+            var query = context.BlogPosts.SqlQuery(fullTextSql, new SqlParameter("@searchTerm", searchTerm),
+                                                                new SqlParameter("@startRow", skip),
+                                                                new SqlParameter("@endRow", skip + pageSize));
+            return query.ToList();
         }
 
         public BlogPost FindPost(DateTime dateFilter, string title)

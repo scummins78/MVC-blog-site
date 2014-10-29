@@ -16,34 +16,73 @@
         </div>
         <span id="loading" data-bind="visible: IsLoading"><img src="img/ajax-loader.gif" /></span>
         <div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox"/></th><th>Title</th><th>Author</th><th>Category</th><th>Date Posted</th><th>Tags</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: Posts">
-                    <tr>
-                        <td>
-                            <input type="checkbox"/>
-                        </td>
-                        <td>
-                            <a data-bind="attr: { href: EditPostUrl }"><span data-bind="text: Title"></span></a>
-                        </td>
-                        <td data-bind="text: Author"></td>
-                        <td data-bind="text: Category"></td>
-                        <td data-bind="text: DatePosted"></td>
-                        <td data-bind="text: TagList"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="pager">
-                Total Posts:<span data-bind="text: PostCount"></span>
-                <button data-bind="click: PreviousPage">previous page</button>
-                <span data-bind="text: CurrentPage"></span>
-                <button data-bind="click: NextPage">next page</button>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Post List
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>
+                                    <select class="form-control input-sm">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    records per page
+                                </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Search: <input type="search" class="form-control input-sm" /> </label>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-bordered no-footer table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" /></th>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Category</th>
+                                        <th>Date Posted</th>
+                                        <th>Tags</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: Posts">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" />
+                                        </td>
+                                        <td>
+                                            <a data-bind="attr: { href: EditPostUrl }"><span data-bind="text: Title"></span></a>
+                                        </td>
+                                        <td data-bind="text: Author"></td>
+                                        <td data-bind="text: Category"></td>
+                                        <td data-bind="text: DatePosted"></td>
+                                        <td data-bind="text: TagList"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div>Showing 1 to 10 of <span data-bind="text: PostCount"></span></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div>
+                                    <ul class="pagination">
+                                        <li class="previous">
+                                            <a data-bind="click: PreviousPage">Previous</a>
+                                        </li>
+                                        <li class="next">
+                                            <a data-bind="click: NextPage">Next</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 </div>

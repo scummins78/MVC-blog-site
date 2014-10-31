@@ -36,8 +36,8 @@ namespace Blog.Models.Widget
                 // build a link to the blog tag list
                 return Url.Action("ByMonth", "Blog", new
                              {
-                                year = Year,
-                                month = Month
+                                year = Year.ToString(),
+                                month = Month.ToString().Length == 1 ? "0" + Month.ToString() : Month.ToString()
                              });
             }
         }

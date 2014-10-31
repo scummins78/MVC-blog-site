@@ -94,7 +94,7 @@ namespace Blog
         /// <returns></returns>
         public async Task<List<RecentPostLinkVM>> GetRecentPostLinksAsync()
         {
-            var posts = await blogRepository.GetPostsAsync(skip: 0, pageSize: 5,
+            var posts = await blogRepository.GetPostsAsync(skip: 0, pageSize: 3,
                                                     orderBy: q => q.OrderByDescending(p => p.DateTimePosted),
                                                     includeChildren: false).ConfigureAwait(false);
 

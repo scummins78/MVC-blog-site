@@ -1,10 +1,14 @@
 ﻿<div id="tagList" class="widget-box">
     <h3>Tags</h3>
     <div>
-        <div class="post-box" data-bind="foreach: Tags">
-            <a class="title-link" data-bind="attr: { href: TagUrl }">
-                <span data-bind="text: TagValue"></span>(<span data-bind="text: Instances"></span>)
-            </a>
+        <div class="post-box" data-bind="foreach: TagRows">
+            <div class="row" data-bind="foreach: $data">
+                <div class="col-md-6">
+                    <a class="title-link" data-bind="attr: { href: TagUrl }">
+                        <span data-bind="text: TagValue"></span>(<span data-bind="text: Instances"></span>)
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

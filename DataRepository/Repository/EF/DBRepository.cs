@@ -26,8 +26,8 @@ namespace DataRepository.Repository.EF
 	                                        GROUP BY DATEPART(year,[DateTimePosted]), 
                                                 DATEPART(month,[DateTimePosted]), 
                                                 DATENAME(month,[DateTimePosted]),DATENAME(year,[DateTimePosted])
-	                                        ORDER BY DATEPART(year,[DateTimePosted]), 
-                                                DATEPART(month,[DateTimePosted])";
+	                                        ORDER BY DATEPART(year,[DateTimePosted]) DESC, 
+                                                DATEPART(month,[DateTimePosted]) DESC";
 
         readonly string fullTextSql = @"SELECT [ID], [Title], [Author], [DateTimePosted], [MainImageId],
 		                                        [BlogText], [UrlTitle], [AuthorId], [Category], RowNum 

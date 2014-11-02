@@ -47,7 +47,7 @@
                             }
                         }
                     </div>
-                    <img class="img-responsive img-main" src="@post.MainImageUrl" alt="" />
+                    <img class="img-responsive img-main lazy" data-original="@post.MainImageUrl" alt="" />
                     <p class="post-subtitle">
                         @post.BlogSummary
                     </p>
@@ -93,6 +93,15 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/widgets")
+
+    <script type="text/javascript" charset="utf-8">
+        // lazy load plugin
+        $(function () {
+            $("img.lazy").lazyload({
+                effect: "fadeIn"
+            });
+        });
+    </script>
 }
 
 

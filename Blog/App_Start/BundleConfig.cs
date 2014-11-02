@@ -10,6 +10,7 @@ namespace Blog
         {
             bundles.Add(new ScriptBundle("~/bundles/libraries").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.lazyload.js",
                         "~/Scripts/knockout-3.2.0.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/respond.js"));

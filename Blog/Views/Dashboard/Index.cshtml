@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row" id="blogtable">
         <!-- Blog Post Content Column -->
-        <div class="col-lg-offset-2 col-lg-8 col-md-2 col-md-8">
+        <div class="col-lg-12 col-md-12">
 
             <!-- Page Header -->
             <header class="entry-header">
@@ -13,31 +13,30 @@
                     <h1>Edit Blog Posts</h1>
                 </div>
             </header>
-        </div>
-        <span id="loading" data-bind="visible: IsLoading"><img src="img/ajax-loader.gif" /></span>
-        <div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Post List
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>
-                                    <select class="form-control input-sm">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                    </select>
-                                    records per page
-                                </label>
+            <span id="loading" data-bind="visible: IsLoading"><img src="img/ajax-loader.gif" /></span>
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Post List
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive blog-table">
+                            <div class="row form-inline">
+                                <div class="col-sm-6">
+                                    <label>
+                                        <select class="form-control input-sm" data-bind="value: ItemsPerPage">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        records per page
+                                    </label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="search"><label>Search: <input type="search" class="form-control input-sm" /> </label></div>
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label>Search: <input type="search" class="form-control input-sm" /> </label>
-                            </div>
-                        </div>
-                        <table class="table table-striped table-bordered no-footer table-hover">
+                            <table class="table table-striped table-bordered no-footer table-hover">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" /></th>
@@ -63,20 +62,21 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div>Showing 1 to 10 of <span data-bind="text: PostCount"></span></div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div>
-                                    <ul class="pagination">
-                                        <li class="previous">
-                                            <a data-bind="click: PreviousPage">Previous</a>
-                                        </li>
-                                        <li class="next">
-                                            <a data-bind="click: NextPage">Next</a>
-                                        </li>
-                                    </ul>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div>Showing <span data-bind="text: CurrentStartIndex"></span> to <span data-bind="text: CurrentEndIndex"></span> of <span data-bind="text: PostCount"></span></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div>
+                                        <ul class="pagination">
+                                            <li class="previous">
+                                                <a data-bind="click: PreviousPage">Previous</a>
+                                            </li>
+                                            <li class="next">
+                                                <a data-bind="click: NextPage">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -84,6 +84,8 @@
                 </div>
             </div>
         </div>
+        
+        
     </div>
 </div>
 

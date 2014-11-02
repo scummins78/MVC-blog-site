@@ -100,6 +100,19 @@
     padding: 5px !important;
 }
 
+.blog-table select {
+    width: 68px;
+}
+
+.blog-table .search label{
+    float: right;
+}
+
+.blog-table .search input{
+    width: 200px;
+}
+
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 200px;

@@ -34,12 +34,12 @@ namespace Blog.Controllers
         /// Endpoint for retrieving posts to list in dashboard
         /// </summary>
         /// <returns>json blog list</returns>
-        public JsonResult BlogList(int page = 1)
+        public JsonResult BlogList(int page = 1, int itemsPerPage = 25)
         {
             try
             {
                 // get tag list
-                var viewModel = dataHelper.GetBlogItemsAsync(40, page).Result;
+                var viewModel = dataHelper.GetBlogItemsAsync(itemsPerPage, page).Result;
                 return Json(new JsonReturnObject(viewModel, Response.StatusCode, true), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

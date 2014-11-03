@@ -24,7 +24,7 @@
                             <div class="row form-inline">
                                 <div class="col-sm-6">
                                     <label>
-                                        <select class="form-control input-sm" data-bind="value: ItemsPerPage">
+                                        <select class="form-control input-sm" data-bind="value: ItemsPerPage, event: { change: ItemCountChanged }">
                                             <option value="10">10</option>
                                             <option value="25">25</option>
                                             <option value="50">50</option>
@@ -67,11 +67,13 @@
                                     <div>Showing <span data-bind="text: CurrentStartIndex"></span> to <span data-bind="text: CurrentEndIndex"></span> of <span data-bind="text: PostCount"></span></div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div>
+                                    <div class="datatable">
                                         <ul class="pagination">
                                             <li class="previous">
                                                 <a data-bind="click: PreviousPage">Previous</a>
                                             </li>
+                                            
+                                            
                                             <li class="next">
                                                 <a data-bind="click: NextPage">Next</a>
                                             </li>

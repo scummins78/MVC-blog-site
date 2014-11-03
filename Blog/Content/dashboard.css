@@ -112,6 +112,15 @@
     width: 200px;
 }
 
+div.datatable ul.pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+    float: right;
+} 
+
+.blog-table table {
+    margin-bottom: 5px !important;
+}
 
 @media(min-width:768px) {
     #wrapper {

@@ -100,6 +100,8 @@
     padding: 5px !important;
 }
 
+
+/* table display */
 .blog-table select {
     width: 68px;
 }
@@ -120,6 +122,25 @@ div.datatable ul.pagination {
 
 .blog-table table {
     margin-bottom: 5px !important;
+}
+
+.blog-table table thead .sorting::after {
+    content: "\f0dc";
+    float: right;
+    font-family: fontawesome;
+    color: rgba(50, 50, 50, .5);
+}
+
+.blog-table table thead .sorting_asc::after {
+    content: "\f0de";
+    float: right;
+    font-family: fontawesome;
+}
+
+.blog-table table thead .sorting_desc::after {
+    content: "\f0dd";
+    float: right;
+    font-family: fontawesome;
 }
 
 @media(min-width:768px) {

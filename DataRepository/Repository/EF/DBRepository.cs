@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using RefactorThis.GraphDiff;
 
 using DataRepository.Models;
 
@@ -229,8 +230,13 @@ namespace DataRepository.Repository.EF
             }
             else
             {
-                var postEntry = context.Entry(post);
-                postEntry.CurrentValues.SetValues(blogPost);
+                // update blog text and tag collection
+                context.UpdateGraph(blogPost, map => map
+                        .OwnedCollection(p => p.Tags));
+
+                //var postEntry = context.Entry(post);
+                //postEntry.CurrentValues.SetValues(blogPost);
+              
             }
 
             return context.SaveChanges();

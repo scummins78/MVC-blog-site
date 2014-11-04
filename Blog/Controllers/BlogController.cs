@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using Blog.Models.Blog;
 using DataRepository.Repository;
 using NLog;
 
@@ -58,7 +60,7 @@ namespace Blog.Controllers
                     throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
                 
                 // create filter if needed
-                object viewModel = null;
+                BlogListVM viewModel;
                 if (category == "default"){
                     viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
                                                         orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
@@ -69,6 +71,9 @@ namespace Blog.Controllers
                                                         filter: p => p.Category == category, 
                                                         orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
                 }
+
+                // set sub title based on category
+                viewModel.PageSubTitle = string.Format("Posts in '{0}' category", category);
 
                 // if this is page 1 with the default category, show splash
                 if (page == 1 && category == "default")
@@ -110,6 +115,10 @@ namespace Blog.Controllers
                                                                 p.DateTimePosted.Month == mn &&
                                                                 p.DateTimePosted.Day == dy,
                                                          orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+
+                // set sub title based on date
+                viewModel.PageSubTitle = string.Format("Posts made on '{0}/{1}/{2}'", month, day, year);
+
                 return View("List", viewModel);
             }
             catch (Exception ex)
@@ -141,6 +150,11 @@ namespace Blog.Controllers
                                                             filter: p => p.DateTimePosted.Year == yr &&
                                                                  p.DateTimePosted.Month == mn,
                                                             orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+
+                // set sub title based on date
+                viewModel.PageSubTitle = string.Format("Posts made during '{0}, {1}'", 
+                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mn),  year);
+
                 return View("List", viewModel);
             }
             catch (Exception ex)
@@ -169,6 +183,10 @@ namespace Blog.Controllers
                 var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
                                                         p => p.DateTimePosted.Year == yr,
                                                         q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+
+                // set sub title based on date
+                viewModel.PageSubTitle = string.Format("Posts made during '{0}'", year);
+
                 return View("List", viewModel);
             }
             catch (Exception ex)
@@ -196,6 +214,9 @@ namespace Blog.Controllers
                 var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
                                                         p => p.Tags.Any(t => t.TagValue.ToLower() == searchTag),
                                                         q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+
+                // set sub title based on date
+                viewModel.PageSubTitle = string.Format("Posts tagged @'{0}'", searchTag);
 
                 // add code here
                 return View("List", viewModel);

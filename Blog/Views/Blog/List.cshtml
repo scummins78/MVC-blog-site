@@ -1,10 +1,8 @@
 ﻿@model Blog.Models.Blog.BlogListVM
 
 @{
-    ViewBag.Title = Model.PageTitle;
+    ViewBag.Title = Model.PageSubTitle + "|" + Model.PageTitle;
 }
-
-<!-- TODO:  need something here to call out where we are at;  IE, tag, page, etc.-->
 
 <!-- Main Content -->
 <div class="container">
@@ -12,7 +10,7 @@
     <!-- Page Header -->
     <header class="entry-header">
         <div class="post-heading">
-            <h1>Some Type of Title Goes Here</h1>
+            <h1>@Model.PageSubTitle</h1>
         </div>
     </header>
     

@@ -11,6 +11,9 @@ namespace Blog.Models.Blog
         public string PageTitle { get; set; }
         public string Heading { get; set; }
         public string SubHeading { get; set; }
+
+        // title that describes the contents of the page (tag, category, etc.)
+        public string PageSubTitle { get; set; }
         public IEnumerable<BlogPostVM>BlogPosts { get; set; }
 
         // paging related properties

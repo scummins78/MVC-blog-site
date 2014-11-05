@@ -30,10 +30,15 @@
         }
     });
 
-    self.Load = function (page) {
+    self.Load = function (page, sort) {
         this.IsLoading(true);
 
-        $.getJSON("/Blog/dashboard/bloglist/" + page + "?itemsPerPage=" + self.ItemsPerPage(), function (returnData) {
+        var url = "/Blog/dashboard/bloglist/" + page + "?itemsPerPage=" + self.ItemsPerPage();
+        if (sort !== undefined) {
+            url = url + "&sort=" + sort;
+        }
+
+        $.getJSON(url, function (returnData) {
 
             if (returnData.Success) {
                 //self.ItemsPerPage(returnData.Data.ItemsPerPage);
@@ -55,6 +60,10 @@
     self.PreviousPage = function () {
         this.Load(this.CurrentPage() - 1);
     };
+
+    self.Sort = function (element, sortColumn) {
+        this.Load(this.CurrentPage(), sortColumn);
+    }
 
     // initialize
     this.Load(1);

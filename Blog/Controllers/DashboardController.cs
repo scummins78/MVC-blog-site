@@ -34,7 +34,7 @@ namespace Blog.Controllers
         /// Endpoint for retrieving posts to list in dashboard
         /// </summary>
         /// <returns>json blog list</returns>
-        public JsonResult BlogList(int page = 1, int itemsPerPage = 25)
+        public JsonResult BlogList(int page = 1, int itemsPerPage = 25, string sort = "DatePosted")
         {
             try
             {

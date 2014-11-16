@@ -13,7 +13,8 @@ namespace Blog
                         "~/Scripts/jquery.lazyload.js",
                         "~/Scripts/knockout-3.2.0.js",
                         "~/Scripts/bootstrap.js",
-                        "~/Scripts/respond.js"));
+                        "~/Scripts/respond.js",
+                        "~/Scripts/require.js")); // needed for dependency injection, needs to be last script loaded
 
             bundles.Add(new ScriptBundle("~/bundles/widgets").Include(
                             "~/Scripts/widgets/RecentPostsVM.js",

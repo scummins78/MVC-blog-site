@@ -238,6 +238,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\ajax-loader.gif" />
     <Content Include="img\home-bg.jpg" />
+    <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="PrivateSettings.config" />
@@ -257,8 +258,11 @@
     <Content Include="Scripts\knockout-3.2.0.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\navigation.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\services\DataService.js" />
     <Content Include="Scripts\socialmediaapi.js" />
     <Content Include="Scripts\texteditor.js" />
     <Content Include="Scripts\tinymce\license.txt" />

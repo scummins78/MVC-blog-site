@@ -17,12 +17,12 @@ namespace Blog
                         "~/Scripts/require.js")); // needed for dependency injection, needs to be last script loaded
 
             bundles.Add(new ScriptBundle("~/bundles/widgets").Include(
-                            "~/Scripts/widgets/RecentPostsVM.js",
-                            "~/Scripts/widgets/ArchiveListVM.js",
-                            "~/Scripts/widgets/TagListVM.js"));
+                            "~/Scripts/app/config.js",
+                            "~/Scripts/app/services/*.js",
+                            "~/Scripts/app/widgets/*VM.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
-                            "~/Scripts/dashboard/BlogTableVM.js"));
+                            "~/Scripts/app/dashboard/*VM.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/val").Include(
                         "~/Scripts/jquery.validate*"));

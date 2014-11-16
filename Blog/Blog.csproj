@@ -244,7 +244,7 @@
     <Content Include="PrivateSettings.config" />
     <Content Include="ConnectionStrings.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\dashboard\BlogTableVM.js" />
+    <Content Include="Scripts\app\dashboard\BlogTableVM.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -262,7 +262,7 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\services\DataService.js" />
+    <Content Include="Scripts\app\services\DataService.js" />
     <Content Include="Scripts\socialmediaapi.js" />
     <Content Include="Scripts\texteditor.js" />
     <Content Include="Scripts\tinymce\license.txt" />
@@ -432,9 +432,9 @@
     <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
-    <Content Include="Scripts\widgets\ArchiveListVM.js" />
-    <Content Include="Scripts\widgets\RecentPostsVM.js" />
-    <Content Include="Scripts\widgets\TagListVM.js" />
+    <Content Include="Scripts\app\widgets\ArchiveListVM.js" />
+    <Content Include="Scripts\app\widgets\RecentPostsVM.js" />
+    <Content Include="Scripts\app\widgets\TagListVM.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

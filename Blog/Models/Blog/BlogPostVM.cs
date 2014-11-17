@@ -18,6 +18,8 @@ namespace Blog.Models.Blog
         public string BlogText { get; set; }
         public string Category { get; set; }
         public DateTime DateTimePosted { get; set; }
+        public DateTime DateTimeUpdated { get; set; }
+        public DateTime DateTimePublished { get; set; }
         public string MainImageId { get; set; }
         public string Title { get; set; }
         public string UrlTitle { get; set; }

@@ -99,9 +99,15 @@ namespace Blog.Controllers
                     return View("Error");
                 }
                 
-                model.DateTimePosted = DateTime.Now;
                 model.Author = string.Format("{0} {1}", AppUser.FirstName, AppUser.LastName);
                 model.AuthorId = AppUser.Id;
+                model.DateTimeUpdated = DateTime.Now;
+
+                if (model.IsNew)
+                {
+                    model.DateTimePosted = DateTime.Now;
+                    model.DateTimePublished = DateTime.Now; // TODO: publish immediately for now
+                }
                 
                 // build url title
                 model.UrlTitle = model.Title.Replace(" ", "-").ToLower();

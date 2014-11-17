@@ -229,14 +229,10 @@ namespace DataRepository.Repository.EF
                 context.BlogPosts.Add(blogPost);
             }
             else
-            {
+            { 
                 // update blog text and tag collection
                 context.UpdateGraph(blogPost, map => map
-                        .OwnedCollection(p => p.Tags));
-
-                //var postEntry = context.Entry(post);
-                //postEntry.CurrentValues.SetValues(blogPost);
-              
+                        .OwnedCollection(p => p.Tags)); 
             }
 
             return context.SaveChanges();

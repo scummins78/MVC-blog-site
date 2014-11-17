@@ -20,6 +20,9 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.IsNew)
+                    @Html.HiddenFor(model => model.DateTimePublished)
+                    @Html.HiddenFor(model => model.DateTimePosted)
                     <div class="form-group">
                         <label>Title</label>
                         @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "title", maxlength = "100", required = "required" })

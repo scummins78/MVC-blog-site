@@ -20,6 +20,10 @@ namespace DataRepository.Models
         public string Category { get; set; }
         [Index, Required]
         public DateTime DateTimePosted { get; set; }
+        [Index, Required]
+        public DateTime DateTimeUpdated { get; set; }
+        [Index, Required]
+        public DateTime DateTimePublished { get; set; }
         public string MainImageId { get; set; }
         [Required]
         public string Title { get; set; }

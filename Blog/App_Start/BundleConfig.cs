@@ -22,6 +22,8 @@ namespace Blog
                             "~/Scripts/app/widgets/*VM.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
+                            "~/Scripts/app/config.js",
+                            "~/Scripts/app/services/*.js",
                             "~/Scripts/app/dashboard/*VM.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/val").Include(

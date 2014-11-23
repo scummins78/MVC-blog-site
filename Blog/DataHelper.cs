@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -206,9 +207,9 @@ namespace Blog
         {
             return new BlogListVM(itemsPerPage, page, totalPostCount, posts)
             {
-                Heading = "Under Construction",
-                SubHeading = "A Work In Progress Blog Site",
-                PageTitle = "Under Construction"
+                Heading = ConfigurationManager.AppSettings["Heading"],
+                SubHeading = ConfigurationManager.AppSettings["SubHeading"],
+                PageTitle = ConfigurationManager.AppSettings["PageTitle"]
             };
         }
 

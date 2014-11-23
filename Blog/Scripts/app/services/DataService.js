@@ -37,6 +37,23 @@
             });
 
             return deferred.promise();
+        },
+        getBlogs: function(page, itemsPerPage, sort) {
+            var deferred = $.Deferred();
+
+            var url = "/Blog/dashboard/bloglist/" + page + "?itemsPerPage=" + itemsPerPage;
+            if (sort !== undefined) {
+                url = url + "&sort=" + sort;
+            }
+
+            $.getJSON(url, function (returnData) {
+
+                if (returnData.Success) {
+                    deferred.resolve(returnData.Data);
+                }
+            });
+
+            return deferred.promise();
         }
 
     };

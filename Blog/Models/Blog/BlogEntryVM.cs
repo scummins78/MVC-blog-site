@@ -39,9 +39,11 @@ namespace Blog.Models.Blog
             viewModel.InjectFrom<DeepCloneInjection>(post);
 
             // flatten tags
-
-            viewModel.BlogTags = String.Join<string>(",", 
+            if (post.Tags != null)
+            {
+                viewModel.BlogTags = String.Join<string>(",", 
                                     post.Tags.Select(t => t.TagValue).ToArray());
+            }
 
             // check to see if this is new
             if (post.ID > 0)
@@ -54,7 +56,7 @@ namespace Blog.Models.Blog
             }
 
             // clear up url
-            viewModel.UrlTitle = StripHtml(post.UrlTitle, false);
+            viewModel.UrlTitle = StripUrl(post.UrlTitle);
             return viewModel;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Omu.ValueInjecter;
 using ValueInjecterExtensions;
 using DataRepository.Models;
@@ -52,6 +53,7 @@ namespace Blog.Models.Blog
             var model = new BlogPost();
             model.InjectFrom<DeepCloneInjection>(this);
 
+            model.UrlTitle = StripUrl(model.UrlTitle);
             return model;
         }
 
@@ -62,7 +64,7 @@ namespace Blog.Models.Blog
             viewModel.InjectFrom<DeepCloneInjection>(post);
 
             // clear up url
-            viewModel.UrlTitle = StripHtml(post.UrlTitle, false);
+            viewModel.UrlTitle = StripUrl(post.UrlTitle);
             return viewModel;
         }
 
@@ -77,5 +79,23 @@ namespace Blog.Models.Blog
             return System.Text.RegularExpressions.Regex.Replace(html, "<[^>]*>", string.Empty);
         }
 
+        internal static string StripUrl(string url) 
+        {
+            var reservedCharacters = "!*'();:@&=+$,/?%#[]<>";
+
+            if (String.IsNullOrEmpty(url))
+            return String.Empty;
+
+            var sb = new StringBuilder();
+
+            foreach (char @char in url)
+            {
+                if (reservedCharacters.IndexOf(@char) == -1)
+                {
+                    sb.Append(@char);
+                }
+            }
+            return sb.ToString();
+        }
     }
 }

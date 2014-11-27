@@ -1,5 +1,4 @@
-﻿@using DataRepository.Models
-@model Blog.Models.Blog.BlogEntryVM
+﻿@model Blog.Models.Blog.BlogEntryVM
 @{
     ViewBag.Title = Model.PageTitle;
 }
@@ -25,7 +24,10 @@
                 </header>
 
                 <article>
-                    <img class="img-responsive img-main" src="@Model.MainImageUrl" alt="" />
+                    @if (Model.MainImageId != null)
+                    {
+                        <img class="img-responsive img-main" src="@Model.MainImageUrl" alt="" />
+                    }
 
                     <!-- Post Content -->
                     <p>@Html.Raw(Model.BlogText)</p>

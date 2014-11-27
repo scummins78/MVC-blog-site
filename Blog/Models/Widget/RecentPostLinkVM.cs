@@ -44,7 +44,7 @@ namespace Blog.Models.Widget
         {
             get
             {
-                return string.Format("{0}{1}s.jpg", BaseImageUrl, MainImageId);
+                return  MainImageId != null ?  string.Format("{0}{1}s.jpg", BaseImageUrl, MainImageId) : "";
             }
         }
 

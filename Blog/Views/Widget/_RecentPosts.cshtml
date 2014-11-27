@@ -3,7 +3,7 @@
     <h3>Recent Posts</h3>   
      <div data-bind="foreach: Posts">
         <div class="post-box">
-            <a data-bind="attr: { href: PostUrl }">
+            <a data-bind="visible: MainImageThumbnailUrl.length > 0, attr: { href: PostUrl }">
                 <img data-bind="attr:{ src: MainImageThumbnailUrl }" />
             </a>
             <h4>
@@ -11,7 +11,7 @@
                 <span data-bind="text: Title"></span>
             </a>
             </h4>
-            <p>Posted by <span data-bind="text: Author"></span></p>
+            <p data-bind="css: {'no-image': MainImageThumbnailUrl.length == 0}">Posted by <span data-bind="text: Author"></span></p>
         </div>
     </div>
 </div>

@@ -45,7 +45,12 @@
                             }
                         }
                     </div>
-                    <img class="img-responsive img-main lazy" data-original="@post.MainImageUrl" alt="" />
+                    
+                    @if (post.MainImageId != null)
+                    {
+                        <img class="img-responsive img-main lazy" data-original="@post.MainImageUrl" alt="" />
+                    }
+ 
                     <p class="post-subtitle">
                         @post.BlogSummary
                     </p>

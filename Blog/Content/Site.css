@@ -505,6 +505,10 @@ div.widget-box .post-box {
     margin: 0 0 25px 90px;
 }
 
+.post-box p.no-image {
+    margin : 0 !important;
+}
+
 /*  account related pages  */
 .account-display{
     margin-top: 100px;

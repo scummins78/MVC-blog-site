@@ -61,6 +61,17 @@ namespace Blog
                             new { controller = "Blog", action = "ByTag" }
                 );
 
+            routes.MapRoute("SearchFirstPage",
+                            "search/{term}",
+                            new { controller = "Blog", action = "Search", page = 1 }
+                );
+
+            routes.MapRoute("Search",
+                            "search/{term}/page/{page}",
+                            new { controller = "Blog", action = "Search" }
+                );
+
+
             routes.MapRoute("About",
                             "about",
                             new { controller = "Home", action = "About" }

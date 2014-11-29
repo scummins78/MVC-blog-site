@@ -30,12 +30,12 @@ namespace DataRepository.Repository.EF
 	                                        ORDER BY DATEPART(year,[DateTimePosted]) DESC, 
                                                 DATEPART(month,[DateTimePosted]) DESC";
 
-        readonly string fullTextSql = @"SELECT [ID], [Title], [Author], [DateTimePosted], [MainImageId],
+        readonly string fullTextSql = @"SELECT [ID], [Title], [Author], [DateTimePosted], [DateTimeUpdated], [DateTimePublished], [MainImageId],
 		                                        [BlogText], [UrlTitle], [AuthorId], [Category], RowNum 
                                         FROM
 			                                (   SELECT TOP (@endRow) [ID], ROW_NUMBER() OVER(ORDER BY [DateTimePosted] DESC) AS RowNum, 
-                                                    [Title], [Author], [DateTimePosted], [MainImageId], [BlogText], [UrlTitle], [AuthorId], [Category]
-                                                FROM [BlogDB].[dbo].[BlogPosts]
+                                                    [Title], [Author], [DateTimePosted], [DateTimeUpdated], [DateTimePublished], [MainImageId], [BlogText], [UrlTitle], [AuthorId], [Category]
+                                                FROM [dbo].[BlogPosts]
                                                 WHERE CONTAINS(([Title], [BlogText], [Category]), @searchTerm)
                                             ) AS BlogInfo
                                         WHERE RowNum BETWEEN @startRow AND @endRow";
@@ -132,6 +132,14 @@ namespace DataRepository.Repository.EF
                                                                 new SqlParameter("@startRow", skip),
                                                                 new SqlParameter("@endRow", skip + pageSize));
             return query.ToList();
+        }
+
+        public Task<List<BlogPost>> SearchPostsAsync(string searchTerm, int skip = 0, int pageSize = 10)
+        {
+            var query = context.BlogPosts.SqlQuery(fullTextSql, new SqlParameter("@searchTerm", searchTerm),
+                                                                new SqlParameter("@startRow", skip),
+                                                                new SqlParameter("@endRow", skip + pageSize));
+            return query.ToListAsync();
         }
 
         public BlogPost FindPost(DateTime dateFilter, string title)

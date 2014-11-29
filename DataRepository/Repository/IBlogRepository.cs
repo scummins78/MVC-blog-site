@@ -18,6 +18,8 @@ namespace DataRepository.Repository
                                 Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null, bool includeChildren = true);
 
         List<BlogPost> SearchPosts(string searchTerm, int skip = 0, int pageSize = 10);
+
+        Task<List<BlogPost>> SearchPostsAsync(string searchTerm, int skip = 0, int pageSize = 10);
         
         int GetPostCount(Expression<Func<BlogPost, bool>> filter = null);
 

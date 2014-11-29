@@ -48,7 +48,7 @@ namespace Blog.Controllers
                     year, month, day, title), ex, logger);
             }
         }
-
+        
         /// <summary>
         /// Gets a list of the latest blogs
         /// </summary>
@@ -226,6 +226,32 @@ namespace Blog.Controllers
                 return HandleExceptions(
                     string.Format("Error occurred in ByTag.  Parameters- tag: {0} page: {1}",
                     tag, page), ex, logger);
+            }
+        }
+
+        public ActionResult Search(string term, int page)
+        {
+            try
+            {
+                if (page < 1)
+                        throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
+            
+                // get posts based on tag
+                var searchTerm = term.ToLower();
+                var viewModel = dataHelper.SearchPostsAsync(term).Result;
+                // set sub title based on date
+                viewModel.PageSubTitle = string.Format("Posts Containing '{0}'", term);
+
+                // add code here
+                return View("List", viewModel);
+
+
+            }
+            catch (Exception ex)
+            {
+                return HandleExceptions(
+                    string.Format("Error occurred in Search.  Parameters- term: {0} page: {1}",
+                    term, page), ex, logger);
             }
         }
 

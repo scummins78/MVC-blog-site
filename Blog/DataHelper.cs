@@ -51,6 +51,16 @@ namespace Blog
             return BuildBlogListModel(itemsPerPage, page, postCount, DecodeBlogList(posts));
         }
 
+        public async Task<BlogListVM> SearchPostsAsync(string searchTerm)
+        {
+            // TODO:  for full text search no paging for now, assuming not more than 100 hits
+            var startingPoint = 0;
+            var itemsPerPage = 100;
+            List<BlogPost> posts = await blogRepository.SearchPostsAsync(searchTerm, startingPoint, itemsPerPage).ConfigureAwait(false);
+
+            return BuildBlogListModel(itemsPerPage, 1, itemsPerPage, posts);
+        }
+
         /// <summary>
         /// Retrieves post based on the date posted and post title
         /// </summary>

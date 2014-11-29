@@ -239,6 +239,7 @@
     <Content Include="img\ajax-loader.gif" />
     <Content Include="img\home-bg.jpg" />
     <Content Include="Scripts\app\config.js" />
+    <Content Include="Scripts\app\widgets\SearchVM.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="PrivateSettings.config" />
@@ -498,6 +499,7 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Blog\Splash.cshtml" />
     <Content Include="Views\Shared\_SplashLayout.cshtml" />
+    <Content Include="Views\Widget\_Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

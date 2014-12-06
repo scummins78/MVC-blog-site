@@ -1,4 +1,4 @@
-﻿define("SearchVM", [], function () {
+﻿define("SearchVM", ["config"], function (config) {
 
     var SearchVM = function SearchVM() {
 
@@ -6,7 +6,7 @@
         self.SearchTerm = ko.observable("");
 
         self.Search = function(){
-            window.location.href = "/search/" + self.SearchTerm();
+            window.location.href = config.baseUrl + "/search/" + self.SearchTerm();
         }
     };
 

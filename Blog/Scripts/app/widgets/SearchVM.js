@@ -6,7 +6,7 @@
         self.SearchTerm = ko.observable("");
 
         self.Search = function(){
-            window.location.href = config.baseUrl + "/search/" + self.SearchTerm();
+            window.location.href = config.baseUrl + "search/" + self.SearchTerm();
         }
     };
 

@@ -8,11 +8,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Authentication.Managers;
 using Authentication.Models;
+using Blog.ExceptionHandling;
 using Blog.Models;
 
 namespace Blog.Controllers
 {
-    [Authorize]
+    [Authorize, HandleException]
     public class ManageController : BaseController
     {
         public ManageController()

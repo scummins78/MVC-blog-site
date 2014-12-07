@@ -31,7 +31,7 @@ namespace Blog.Models.Blog
         {
             get
             {
-                return string.Format("{0}{1}l.jpg", BaseImageUrl, MainImageId);
+                return  MainImageId != null ?  string.Format("{0}{1}l.jpg", BaseImageUrl, MainImageId) : "";
             }
         }
 

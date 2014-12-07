@@ -10,11 +10,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Authentication.Models;
 using Authentication.Managers;
+using Blog.ExceptionHandling;
 using Blog.Models;
 
 namespace Blog.Controllers
 {
-    [Authorize]
+    [Authorize, HandleException]
     public class AccountController : BaseController
     {
         private ApplicationUserManager userManager;

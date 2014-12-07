@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Blog.Extensions
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -95,6 +97,8 @@
         </div>
     </footer>
     @Scripts.Render("~/bundles/libraries")
+    @Html.AddConfigModule()
+    
     <script type="text/javascript">
         // Navigation Scripts to Show Header on Scroll-Up
         jQuery(document).ready(function ($) {

@@ -197,6 +197,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\WidgetController.cs" />
     <Compile Include="DataHelper.cs" />
+    <Compile Include="ExceptionHandling\HandleException.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -502,6 +504,7 @@
     <Content Include="Views\Widget\_Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Api\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

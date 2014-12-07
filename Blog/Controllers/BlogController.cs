@@ -2,12 +2,14 @@
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using Blog.ExceptionHandling;
 using Blog.Models.Blog;
 using DataRepository.Repository;
 using NLog;
 
 namespace Blog.Controllers
 {
+    [HandleException]
     public class BlogController : BaseController
     {
         private const int PostsPerPage = 10;
@@ -33,20 +35,11 @@ namespace Blog.Controllers
         /// <returns></returns>
         public ActionResult Entry(string year, string month, string day, string title)
         {
-            try
-            {
-                // find the specific blog post requested
-                var datePosted = DateTime.Parse(string.Format("{0}-{1}-{2}", year, month, day));
-                var viewModel = dataHelper.FindPostAsync(datePosted, title).Result;
+            // find the specific blog post requested
+            var datePosted = DateTime.Parse(string.Format("{0}-{1}-{2}", year, month, day));
+            var viewModel = dataHelper.FindPostAsync(datePosted, title).Result;
 
-                return View("Entry", viewModel);
-            }
-            catch (Exception ex)
-            {
-                return HandleExceptions(
-                    string.Format("Error occurred in Entry.  Parameters: {0}, {1}, {2}, {3}",
-                    year, month, day, title), ex, logger);
-            }
+            return View("Entry", viewModel);
         }
         
         /// <summary>
@@ -54,41 +47,32 @@ namespace Blog.Controllers
         /// </summary>
         public ActionResult Index(string category, int page)
         {
-            try
-            {
-                if (page < 1)
-                    throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
+            if (page < 1)
+                throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
                 
-                // create filter if needed
-                BlogListVM viewModel;
-                if (category == "default"){
-                    viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
-                                                        orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
-                }
-                else
-                {
-                    viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
-                                                        filter: p => p.Category == category, 
-                                                        orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
-                }
-
-                // set sub title based on category
-                viewModel.PageSubTitle = string.Format("Posts in '{0}' category", category);
-
-                // if this is page 1 with the default category, show splash
-                if (page == 1 && category == "default")
-                {
-                    return View("Splash", viewModel);
-                }
-
-                return View("List", viewModel);
-                
+            // create filter if needed
+            BlogListVM viewModel;
+            if (category == "default"){
+                viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
+                                                    orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
             }
-            catch (Exception ex)
+            else
             {
-                return HandleExceptions(
-                    string.Format("Error occurred in Entry.  Parameters: page- {0}", page), ex, logger);
+                viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
+                                                    filter: p => p.Category == category, 
+                                                    orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
             }
+
+            // set sub title based on category
+            viewModel.PageSubTitle = string.Format("Posts in '{0}' category", category);
+
+            // if this is page 1 with the default category, show splash
+            if (page == 1 && category == "default")
+            {
+                return View("Splash", viewModel);
+            }
+
+            return View("List", viewModel);
         }
 
         /// <summary>
@@ -100,33 +84,24 @@ namespace Blog.Controllers
         /// <returns></returns>
         public ActionResult ByDay(string year, string month, string day, int page)
         {
-            try
-            {
-                if (page < 1)
-                    throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
+            if (page < 1)
+                throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
                 
-                var dy = Convert.ToInt32(day);
-                var mn = Convert.ToInt32(month);
-                var yr = Convert.ToInt32(year);
+            var dy = Convert.ToInt32(day);
+            var mn = Convert.ToInt32(month);
+            var yr = Convert.ToInt32(year);
 
-                // get posts on a given day
-                var viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
-                                                        filter: p => p.DateTimePosted.Year == yr &&
-                                                                p.DateTimePosted.Month == mn &&
-                                                                p.DateTimePosted.Day == dy,
-                                                         orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+            // get posts on a given day
+            var viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
+                                                    filter: p => p.DateTimePosted.Year == yr &&
+                                                            p.DateTimePosted.Month == mn &&
+                                                            p.DateTimePosted.Day == dy,
+                                                        orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
 
-                // set sub title based on date
-                viewModel.PageSubTitle = string.Format("Posts made on '{0}/{1}/{2}'", month, day, year);
+            // set sub title based on date
+            viewModel.PageSubTitle = string.Format("Posts made on '{0}/{1}/{2}'", month, day, year);
 
-                return View("List", viewModel);
-            }
-            catch (Exception ex)
-            {
-                return HandleExceptions(
-                    string.Format("Error occurred in ByDay.  Parameters- year: {0}, month: {1}, day: {2}, page: {3}",
-                    year, month, day, page), ex, logger);
-            }
+            return View("List", viewModel);
         }
 
         /// <summary>
@@ -137,32 +112,24 @@ namespace Blog.Controllers
         /// <returns></returns>
         public ActionResult ByMonth(string year, string month, int page)
         {
-            try
-            {
-                if (page < 1)
-                    throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
+            if (page < 1)
+                throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
 
-                var mn = Convert.ToInt32(month);
-                var yr = Convert.ToInt32(year);
+            var mn = Convert.ToInt32(month);
+            var yr = Convert.ToInt32(year);
 
-                // get posts done in a given month
-                var viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
-                                                            filter: p => p.DateTimePosted.Year == yr &&
-                                                                 p.DateTimePosted.Month == mn,
-                                                            orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+            // get posts done in a given month
+            var viewModel = dataHelper.BuildPostListModelAsync(itemsPerPage: PostsPerPage, page: page,
+                                                        filter: p => p.DateTimePosted.Year == yr &&
+                                                                p.DateTimePosted.Month == mn,
+                                                        orderBy: q => q.OrderByDescending(p => p.DateTimePosted)).Result;
 
-                // set sub title based on date
-                viewModel.PageSubTitle = string.Format("Posts made during '{0}, {1}'", 
-                                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mn),  year);
+            // set sub title based on date
+            viewModel.PageSubTitle = string.Format("Posts made during '{0}, {1}'", 
+                                CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mn),  year);
 
-                return View("List", viewModel);
-            }
-            catch (Exception ex)
-            {
-                return HandleExceptions(
-                    string.Format("Error occurred in ByMonth.  Parameters- year: {0}, month: {1}, page: {2}",
-                    year, month, page), ex, logger);
-            }
+            return View("List", viewModel);
+            
         }
 
         /// <summary>
@@ -172,29 +139,20 @@ namespace Blog.Controllers
         /// <returns></returns>
         public ActionResult ByYear(string year, int page)
         {
-            try
-            {
-                if (page < 1)
-                    throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
+            if (page < 1)
+                throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
                 
-                // get posts in a given year
-                // get posts done in a given month
-                var yr = Convert.ToInt32(year);
-                var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
-                                                        p => p.DateTimePosted.Year == yr,
-                                                        q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+            // get posts in a given year
+            // get posts done in a given month
+            var yr = Convert.ToInt32(year);
+            var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
+                                                    p => p.DateTimePosted.Year == yr,
+                                                    q => q.OrderByDescending(p => p.DateTimePosted)).Result;
 
-                // set sub title based on date
-                viewModel.PageSubTitle = string.Format("Posts made during '{0}'", year);
+            // set sub title based on date
+            viewModel.PageSubTitle = string.Format("Posts made during '{0}'", year);
 
-                return View("List", viewModel);
-            }
-            catch (Exception ex)
-            {
-                return HandleExceptions(
-                    string.Format("Error occurred in ByYear.  Parameters- year: {0} page: {1}",
-                    year, page), ex, logger);
-            }
+            return View("List", viewModel); 
         }
 
         /// <summary>
@@ -204,55 +162,33 @@ namespace Blog.Controllers
         /// <returns></returns>
         public ActionResult ByTag(string tag, int page)
         {
-            try
-            {
-                if (page < 1)
-                        throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
+            if (page < 1)
+                    throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
             
-                // get posts based on tag
-                var searchTag = tag.ToLower();
-                var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
-                                                        p => p.Tags.Any(t => t.TagValue.ToLower() == searchTag),
-                                                        q => q.OrderByDescending(p => p.DateTimePosted)).Result;
+            // get posts based on tag
+            var searchTag = tag.ToLower();
+            var viewModel = dataHelper.BuildPostListModelAsync(PostsPerPage, page,
+                                                    p => p.Tags.Any(t => t.TagValue.ToLower() == searchTag),
+                                                    q => q.OrderByDescending(p => p.DateTimePosted)).Result;
 
-                // set sub title based on date
-                viewModel.PageSubTitle = string.Format("Posts tagged @'{0}'", searchTag);
+            // set sub title based on date
+            viewModel.PageSubTitle = string.Format("Posts tagged @'{0}'", searchTag);
 
-                // add code here
-                return View("List", viewModel);
-            }
-            catch (Exception ex)
-            {
-                return HandleExceptions(
-                    string.Format("Error occurred in ByTag.  Parameters- tag: {0} page: {1}",
-                    tag, page), ex, logger);
-            }
+            // add code here
+            return View("List", viewModel);
         }
 
         public ActionResult Search(string term, int page)
         {
-            try
-            {
-                if (page < 1)
-                        throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
+            if (page < 1)
+                    throw new ArgumentOutOfRangeException("page", page, "page cannot be below 1");
             
-                // get posts based on tag
-                var searchTerm = term.ToLower();
-                var viewModel = dataHelper.SearchPostsAsync(term).Result;
-                // set sub title based on date
-                viewModel.PageSubTitle = string.Format("Posts Containing '{0}'", term);
+            var viewModel = dataHelper.SearchPostsAsync(term).Result;
+            
+            // set sub title based on search criteria
+            viewModel.PageSubTitle = string.Format("Posts Containing '{0}'", term);
 
-                // add code here
-                return View("List", viewModel);
-
-
-            }
-            catch (Exception ex)
-            {
-                return HandleExceptions(
-                    string.Format("Error occurred in Search.  Parameters- term: {0} page: {1}",
-                    term, page), ex, logger);
-            }
+            return View("List", viewModel);
         }
 
         protected override void Dispose(bool disposing)

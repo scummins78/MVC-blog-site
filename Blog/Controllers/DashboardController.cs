@@ -4,6 +4,7 @@ using System.Web.Security.AntiXss;
 using System.Linq;
 using System.Web.Mvc;
 
+using Blog.ExceptionHandling;
 using Blog.Models;
 using Blog.Models.Blog;
 using DataRepository.Repository;
@@ -12,7 +13,7 @@ using NLog;
 
 namespace Blog.Controllers
 {
-    [Authorize]
+    [Authorize, HandleException]
     public class DashboardController : BaseController
     {
         private readonly DataHelper dataHelper;
@@ -55,79 +56,65 @@ namespace Blog.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult BlogPost(int id = 0)
-        {
-            try
-            { 
-                // check to see if user can create posts
-                if (!CanCreateNewPost())
-                {
-                    logger.Error("User does not have the 'CanCreatePost' user right.");
-                    Response.StatusCode = 404;
-                    return View("Error");
-                }
-                BlogPost post;
-                if (id > 0)
-                {
-                    post = dataHelper.RetrievePost(id);
-                }
-                else
-                {
-                    post = dataHelper.GetNewPost();
-                }
-
-                var model = BlogEntryVM.BuildViewModel(post);
-                model.PageTitle = "Blog Post";
-
-                return View("Entry", model);
-            }
-            catch (Exception ex)
+        { 
+            // check to see if user can create posts
+            if (!CanCreateNewPost())
             {
-                return HandleExceptions("Error occurred in NewPost Get.", ex, logger);
+                logger.Error("User does not have the 'CanCreatePost' user right.");
+                Response.StatusCode = 404;
+                return View("Error");
             }
+            BlogPost post;
+            if (id > 0)
+            {
+                post = dataHelper.RetrievePost(id);
+            }
+            else
+            {
+                post = dataHelper.GetNewPost();
+            }
+
+            var model = BlogEntryVM.BuildViewModel(post);
+            model.PageTitle = "Blog Post";
+
+            return View("Entry", model);
         }
 
         [HttpPost, ValidateAntiForgeryToken, ValidateInput(false)]
         public ActionResult BlogPost(BlogEntryVM model)
         {
-            try
+            // check to see if user can create posts
+            if (!CanCreateNewPost())
             {
-                // check to see if user can create posts
-                if (!CanCreateNewPost())
-                {
-                    logger.Error("User does not have the 'CanCreatePost' user right.");
-                    Response.StatusCode = 404;
-                    return View("Error");
-                }
-                
-                model.Author = string.Format("{0} {1}", AppUser.FirstName, AppUser.LastName);
-                model.AuthorId = AppUser.Id;
-                model.DateTimeUpdated = DateTime.Now;
-
-                if (model.IsNew)
-                {
-                    model.DateTimePosted = DateTime.Now;
-                    model.DateTimePublished = DateTime.Now; // TODO: publish immediately for now
-                }
-                
-                // build url title
-                model.UrlTitle = model.Title.Replace(" ", "-").ToLower();
-
-                // take the entered tags and build blog tag objects
-                model.Tags = BuildTags(model.BlogTags);
-
-                // persist blog
-                var rowsCreated = dataHelper.InsertOrUpdate(FlattenBlogPostModel(model));
-
-                if (rowsCreated == 0)
-                {
-                    // in here handle issues;  maybe throw exception?
-                }
-                return RedirectToAction("Index");
+                logger.Error("User does not have the 'CanCreatePost' user right.");
+                Response.StatusCode = 404;
+                return View("Error");
             }
-            catch (Exception ex)
+                
+            model.Author = string.Format("{0} {1}", AppUser.FirstName, AppUser.LastName);
+            model.AuthorId = AppUser.Id;
+            model.DateTimeUpdated = DateTime.Now;
+
+            if (model.IsNew)
             {
-                return HandleExceptions("Error occurred in NewPost POST.", ex, logger);
+                model.DateTimePosted = DateTime.Now;
+                model.DateTimePublished = DateTime.Now; // TODO: publish immediately for now
             }
+                
+            // build url title
+            model.UrlTitle = model.Title.Replace(" ", "-").ToLower();
+
+            // take the entered tags and build blog tag objects
+            model.Tags = BuildTags(model.BlogTags);
+
+            // persist blog
+            var rowsCreated = dataHelper.InsertOrUpdate(FlattenBlogPostModel(model));
+
+            if (rowsCreated == 0)
+            {
+                // in here handle issues;  maybe throw exception?
+            }
+            return RedirectToAction("Index");
         }
 
         #endregion

@@ -113,15 +113,6 @@ namespace Blog.Controllers
 
         #endregion
 
-        internal ActionResult HandleExceptions(string message, Exception ex, Logger logger)
-        {
-            // log error
-            logger.Error(message, ex);
-
-            Response.StatusCode = 500;
-            return View("Error");
-        }
-
         internal JsonResult HandleAjaxExceptions(string message, Exception ex, Logger logger)
         {
             // log error

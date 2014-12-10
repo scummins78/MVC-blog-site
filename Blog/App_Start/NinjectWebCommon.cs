@@ -5,6 +5,7 @@ namespace Blog.App_Start
 {
     using System;
     using System.Web;
+    using System.Web.Http;
 
     using DataRepository.Repository;
     using DataRepository.Repository.EF;
@@ -47,6 +48,8 @@ namespace Blog.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
+                GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);
 
                 RegisterServices(kernel);
                 return kernel;

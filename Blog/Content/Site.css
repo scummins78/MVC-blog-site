@@ -131,6 +131,7 @@ hr.small {
     -webkit-transition: -webkit-transform 0.3s;
     -moz-transition: -moz-transform 0.3s;
     transition: transform 0.3s;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.15),0 -5px 3px -10px #fff;
   }
   .navbar-custom.is-fixed .navbar-brand {
     color: #404040;

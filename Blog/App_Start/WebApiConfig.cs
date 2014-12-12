@@ -15,6 +15,13 @@ namespace Blog
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "ApiPosts",
+                routeTemplate: "api/posts/page/{page}",
+                defaults: new { controller = "posts", action = "get" }
+            );
+
+
+            config.Routes.MapHttpRoute(
                 name: "ApiWithAction",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }

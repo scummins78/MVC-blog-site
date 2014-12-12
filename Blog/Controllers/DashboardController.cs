@@ -31,24 +31,6 @@ namespace Blog.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Endpoint for retrieving posts to list in dashboard
-        /// </summary>
-        /// <returns>json blog list</returns>
-        public JsonResult BlogList(int page = 1, int itemsPerPage = 25, string sort = "DatePosted")
-        {
-            try
-            {
-                // get tag list
-                var viewModel = dataHelper.GetBlogItemsAsync(itemsPerPage, page).Result;
-                return Json(new JsonReturnObject(viewModel, Response.StatusCode, true), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return HandleAjaxExceptions("Error occurred retrieving blog list.", ex, logger);
-            }
-        }
-
         #region editing and creating posts
 
         /// <summary>

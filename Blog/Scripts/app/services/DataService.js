@@ -1,11 +1,11 @@
-﻿define("DataService", [], function () {
+﻿define("DataService", ["config"], function (config) {
 
 
     var dataService = {
         getArchiveItems: function () {
             var deferred = $.Deferred();
 
-            $.getJSON("/Blog/widget/archivelist", function (returnData) {
+            $.getJSON(config.baseUrl + "api/archive", function (returnData) {
 
                 if (returnData.Success) {
                     deferred.resolve(returnData.Data);
@@ -17,7 +17,7 @@
         getRecentPosts: function () {
             var deferred = $.Deferred();
 
-            $.getJSON("/Blog/widget/recentlist", function (returnData) {
+            $.getJSON(config.baseUrl + "api/posts/recent", function (returnData) {
 
                 if (returnData.Success) {
                     deferred.resolve(returnData.Data);
@@ -29,7 +29,7 @@
         getTags: function () {
             var deferred = $.Deferred();
 
-            $.getJSON("/Blog/widget/taglist", function (returnData) {
+            $.getJSON(config.baseUrl + "api/tags", function (returnData) {
 
                 if (returnData.Success) {
                     deferred.resolve(returnData.Data);
@@ -41,7 +41,7 @@
         getBlogs: function(page, itemsPerPage, sort) {
             var deferred = $.Deferred();
 
-            var url = "/Blog/dashboard/bloglist/" + page + "?itemsPerPage=" + itemsPerPage;
+            var url = config.baseUrl + "api/posts/page/" + page + "?itemsPerPage=" + itemsPerPage;
             if (sort !== undefined) {
                 url = url + "&sort=" + sort;
             }
@@ -55,7 +55,6 @@
 
             return deferred.promise();
         }
-
     };
 
     return dataService;

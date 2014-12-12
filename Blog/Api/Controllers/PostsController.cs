@@ -33,5 +33,13 @@ namespace Blog.Api.Controllers
             var tags = dataHelper.GetRecentPostLinksAsync().Result;
             return new ApiReturnDataModel(tags, (int)HttpStatusCode.OK, true);
         }
+
+        [HttpGet]
+        public ApiReturnDataModel Get(int page = 1, int itemsPerPage = 25, string sort = "DatePosted")
+        {
+            // get tag list
+            var viewModel = dataHelper.GetBlogItemsAsync(itemsPerPage, page).Result;
+            return new ApiReturnDataModel(viewModel, (int)HttpStatusCode.OK, true);
+        }
     }
 }

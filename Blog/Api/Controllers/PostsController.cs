@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 using Blog.Api.Models;
 using Blog.ExceptionHandling;
 using DataRepository.Repository;
+using System.Threading.Tasks;
 
 
 namespace Blog.Api.Controllers
@@ -27,18 +26,18 @@ namespace Blog.Api.Controllers
         /// </summary>
         /// <returns>api return object with data</returns>
         [HttpGet]
-        public ApiReturnDataModel Recent()
+        public async Task<ApiReturnDataModel> Recent()
         {
             // get tag list
-            var tags = dataHelper.GetRecentPostLinksAsync().Result;
+            var tags = await dataHelper.GetRecentPostLinksAsync();
             return new ApiReturnDataModel(tags, (int)HttpStatusCode.OK, true);
         }
 
         [HttpGet]
-        public ApiReturnDataModel Get(int page = 1, int itemsPerPage = 25, string sort = "DatePosted")
+        public async Task<ApiReturnDataModel> Get(int page = 1, int itemsPerPage = 25, string sort = "DatePosted")
         {
             // get tag list
-            var viewModel = dataHelper.GetBlogItemsAsync(itemsPerPage, page).Result;
+            var viewModel = await dataHelper.GetBlogItemsAsync(itemsPerPage, page);
             return new ApiReturnDataModel(viewModel, (int)HttpStatusCode.OK, true);
         }
     }

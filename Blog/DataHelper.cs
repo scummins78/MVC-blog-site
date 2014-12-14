@@ -41,11 +41,11 @@ namespace Blog
         public async Task<BlogListVM> BuildPostListModelAsync(int itemsPerPage = 10, int page = 1, Expression<Func<BlogPost, bool>> filter = null,
                                 Func<IQueryable<BlogPost>, IOrderedQueryable<BlogPost>> orderBy = null)
         {
-            var postCount = await blogRepository.GetPostCountAsync(filter).ConfigureAwait(false);
+            var postCount = await blogRepository.GetPostCountAsync(filter);
 
             // retrieve a 'page' of items
             var startingPoint = page > 1 ? itemsPerPage * (page - 1) : 0;
-            List<BlogPost> posts = await blogRepository.GetPostsAsync(startingPoint, itemsPerPage, filter, orderBy).ConfigureAwait(false);
+            List<BlogPost> posts = await blogRepository.GetPostsAsync(startingPoint, itemsPerPage, filter, orderBy);
             
             // build BlogListViewModel
             return BuildBlogListModel(itemsPerPage, page, postCount, DecodeBlogList(posts));
@@ -56,7 +56,7 @@ namespace Blog
             // TODO:  for full text search no paging for now, assuming not more than 100 hits
             var startingPoint = 0;
             var itemsPerPage = 100;
-            List<BlogPost> posts = await blogRepository.SearchPostsAsync(searchTerm, startingPoint, itemsPerPage).ConfigureAwait(false);
+            List<BlogPost> posts = await blogRepository.SearchPostsAsync(searchTerm, startingPoint, itemsPerPage);
 
             return BuildBlogListModel(itemsPerPage, 1, itemsPerPage, posts);
         }
@@ -69,7 +69,7 @@ namespace Blog
         /// <returns></returns>
         public async Task<BlogEntryVM> FindPostAsync(DateTime dateFilter, string title)
         {
-            var post = await blogRepository.FindPostAsync(dateFilter, title).ConfigureAwait(false);
+            var post = await blogRepository.FindPostAsync(dateFilter, title);
 
             var model = BlogEntryVM.BuildViewModel(DecodeHtmlForDisplay(post));
             model.PageTitle = model.Title;
@@ -84,7 +84,7 @@ namespace Blog
         /// <returns></returns>
         public async Task<List<TagLinkVM>> GetTagsAsync()
         {
-            var tags = await blogRepository.GetDistinctTagsAsync().ConfigureAwait(false);
+            var tags = await blogRepository.GetDistinctTagsAsync();
             return tags.Select(t => TagLinkVM.BuildTagLinkVM(t)).ToList();
         }
 
@@ -95,7 +95,7 @@ namespace Blog
         /// <returns></returns>
         public async Task<List<ArchiveLinkVM>> GetArchiveLinksAsync()
         {
-            var links = await blogRepository.GetArchiveItemsAsync().ConfigureAwait(false);
+            var links = await blogRepository.GetArchiveItemsAsync();
             return links.Select(l => ArchiveLinkVM.BuildArchiveLinkVM(l)).ToList();
         }
 
@@ -107,7 +107,7 @@ namespace Blog
         {
             var posts = await blogRepository.GetPostsAsync(skip: 0, pageSize: 3,
                                                     orderBy: q => q.OrderByDescending(p => p.DateTimePosted),
-                                                    includeChildren: false).ConfigureAwait(false);
+                                                    includeChildren: false);
 
             return posts.Select(p => RecentPostLinkVM.BuildRecentPostLinkVM(p)).ToList();
         }
@@ -121,14 +121,14 @@ namespace Blog
         /// <returns></returns>
         public async Task<BlogTableVM> GetBlogItemsAsync(int itemsPerPage = 10, int page = 1)
         {
-            var postCount = await blogRepository.GetPostCountAsync().ConfigureAwait(false);
+            var postCount = await blogRepository.GetPostCountAsync();
 
             // retrieve a 'page' of items
             var startingPoint = page > 1 ? itemsPerPage * (page - 1) : 0;
 
             var posts = await blogRepository.GetPostsAsync(skip: startingPoint, pageSize: itemsPerPage,
                                         orderBy: q => q.OrderByDescending(p => p.DateTimePosted),
-                                        includeChildren: true).ConfigureAwait(false);
+                                        includeChildren: true);
 
             var viewModel = new BlogTableVM(itemsPerPage)
             {
